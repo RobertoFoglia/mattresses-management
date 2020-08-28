@@ -1,0 +1,8 @@
+C:\Users\Fogli\Desktop\Activities\Personal\Repositories\mattresses-management\mattresses-management\mattresses-management.Core\obj\Debug\netstandard2.0\mattresses-management.Core.AssemblyInfoInputs.cache
+C:\Users\Fogli\Desktop\Activities\Personal\Repositories\mattresses-management\mattresses-management\mattresses-management.Core\obj\Debug\netstandard2.0\mattresses-management.Core.AssemblyInfo.cs
+C:\Users\Fogli\Desktop\Activities\Personal\Repositories\mattresses-management\mattresses-management\mattresses-management.Core\bin\Debug\netstandard2.0\mattresses-management.Core.deps.json
+C:\Users\Fogli\Desktop\Activities\Personal\Repositories\mattresses-management\mattresses-management\mattresses-management.Core\bin\Debug\netstandard2.0\mattresses-management.Core.dll
+C:\Users\Fogli\Desktop\Activities\Personal\Repositories\mattresses-management\mattresses-management\mattresses-management.Core\bin\Debug\netstandard2.0\mattresses-management.Core.pdb
+C:\Users\Fogli\Desktop\Activities\Personal\Repositories\mattresses-management\mattresses-management\mattresses-management.Core\obj\Debug\netstandard2.0\mattresses-management.Core.csproj.CoreCompileInputs.cache
+C:\Users\Fogli\Desktop\Activities\Personal\Repositories\mattresses-management\mattresses-management\mattresses-management.Core\obj\Debug\netstandard2.0\mattresses-management.Core.dll
+C:\Users\Fogli\Desktop\Activities\Personal\Repositories\mattresses-management\mattresses-management\mattresses-management.Core\obj\Debug\netstandard2.0\mattresses-management.Core.pdb

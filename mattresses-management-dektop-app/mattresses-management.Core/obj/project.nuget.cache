@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "eLsLR+hekneQfJovOAFVh/XwyJ9+2sjtjy4OYAv96i/Vk7S738bzlwmoKcRnUZptt5ADkfq31Cn9notoDZ3Xuw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Fogli\\Desktop\\Activities\\Personal\\Repositories\\mattresses-management\\mattresses-management-dektop-app\\mattresses-management.Core\\mattresses-management.Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Fogli\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Fogli\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\Fogli\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
