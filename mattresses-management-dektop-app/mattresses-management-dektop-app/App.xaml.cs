@@ -49,11 +49,6 @@ namespace mattresses_management_dektop_app
             new ServiceConfig(Container);
             System.Diagnostics.Debug.WriteLine("Dependency injections are configured");
 
-            var service = Container.Resolve<IProductsService>();
-            var prod = new Product();
-            prod.Name = "test";
-            service.Insert(prod);
-            var product = service.Find(1);
         }
 
         protected override async Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
