@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Threading.Tasks;
 
 using mattresses_management_dektop_app.Activation;
+using mattresses_management_dektop_app.Configurations;
 using mattresses_management_dektop_app.Services;
 using mattresses_management_dektop_app.Views;
 
@@ -31,7 +32,7 @@ namespace mattresses_management_dektop_app
         {
             InitializeComponent();
             UnhandledException += OnAppUnhandledException;
-        }
+    }
 
         protected override void ConfigureContainer()
         {
@@ -41,6 +42,10 @@ namespace mattresses_management_dektop_app
             Container.RegisterType<ILiveTileService, LiveTileService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IToastNotificationsService, ToastNotificationsService>(new ContainerControlledLifetimeManager());
             Container.RegisterInstance<IResourceLoader>(new ResourceLoaderAdapter(new ResourceLoader()));
+
+            new RepositoriesConfig(Container);
+            new ServiceConfig(Container);
+            System.Diagnostics.Debug.WriteLine("Dependency injections are configured");
         }
 
         protected override async Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
