@@ -28,7 +28,7 @@ namespace mattresses_management_dektop_app
     public sealed partial class App : PrismUnityApplication
     {
 
-        public static IUnityContainer DependencyInjectionContainer { get { return App._container; } }
+        public static IUnityContainer IOCContainer { get { return App._container; } }
         private static IUnityContainer _container;
         public App()
         {
