@@ -19,5 +19,9 @@ namespace mattresses_management_dektop_app.Core.Services
         public Product Find(int id) {
             return this.productsRepository.Find<Product>(id);
         }
+
+        public int Insert(Product item) {
+            return this.productsRepository.Insert(item);
+        }
     }
 }
