@@ -28,7 +28,7 @@ namespace mattresses_management_dektop_app.Views
 
             productsService = ApplicationContext.Container.Resolve<IProductsService>();
 
-            var product = productsService.Find<Product>(1);
+            var product = productsService.Find(1);
         }
     }
 }

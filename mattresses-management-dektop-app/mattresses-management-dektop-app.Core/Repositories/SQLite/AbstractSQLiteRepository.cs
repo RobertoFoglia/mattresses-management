@@ -6,7 +6,7 @@ using System.Text;
 
 namespace mattresses_management_dektop_app.Core.Repositories.SQLite
 {
-    public abstract class AbstractSQLiteRepository<E, K> : IRepository<E, K>
+    public abstract class AbstractSQLiteRepository<E, K> : IRepository<E, K> where E : new()
     {
         public SQLiteConnection connectionPool;
         public AbstractSQLiteRepository(SQLiteConnection connectionPool) {
@@ -19,9 +19,9 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
             this.connectionPool.CreateTable<E>();
         }
 
-        public T Find<T>(K key) where T : E, new()
+        public E Find(K key)
         {
-            return this.connectionPool.Find<T>(key);
+            return this.connectionPool.Find<E>(key);
         }
 
         public int Insert(E item) {

@@ -4,9 +4,9 @@ using System.Text;
 
 namespace mattresses_management_dektop_app.Core.Repositories.Api
 {
-    public interface IRepository<E, K>
+    public interface IRepository<E, K> where E : new()
     {
-        T Find<T>(K key) where T : E, new();
+        E Find(K key);
 
         int Insert(E item);
     }

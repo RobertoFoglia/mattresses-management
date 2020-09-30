@@ -6,16 +6,16 @@ using System.Text;
 
 namespace mattresses_management_dektop_app.Core.Services
 {
-    public class AbstractCRUDService<E, K> : ICRUDService<E, K>
+    public abstract class AbstractCRUDService<E, K> : ICRUDService<E, K> where E : new()
     {
         private readonly IRepository<E, K> CrudRepository;
         public AbstractCRUDService(IRepository<E, K> crudRepository) {
             this.CrudRepository = crudRepository;
         }
 
-        public T Find<T>(K key) where T : E, new()
+        public E Find(K key)
         {
-            return this.CrudRepository.Find<T>(key);
+            return this.CrudRepository.Find(key);
         }
 
         public int Insert(E item)
