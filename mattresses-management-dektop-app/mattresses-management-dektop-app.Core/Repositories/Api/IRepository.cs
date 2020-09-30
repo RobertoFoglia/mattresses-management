@@ -9,5 +9,7 @@ namespace mattresses_management_dektop_app.Core.Repositories.Api
         E Find(K key);
 
         int Insert(E item);
+
+        List<E> FindAll();
     }
 }

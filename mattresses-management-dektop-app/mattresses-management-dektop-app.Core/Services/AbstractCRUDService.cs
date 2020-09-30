@@ -18,6 +18,11 @@ namespace mattresses_management_dektop_app.Core.Services
             return this.CrudRepository.Find(key);
         }
 
+        public List<E> FindAll()
+        {
+            return this.CrudRepository.FindAll();
+        }
+
         public int Insert(E item)
         {
             return this.CrudRepository.Insert(item);

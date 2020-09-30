@@ -25,10 +25,6 @@ namespace mattresses_management_dektop_app.Views
         public SchemeActivationSamplePage()
         {
             InitializeComponent();
-
-            productsService = ApplicationContext.Container.Resolve<IProductsService>();
-
-            var product = productsService.Find(1);
         }
     }
 }

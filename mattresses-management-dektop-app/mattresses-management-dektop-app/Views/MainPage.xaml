@@ -1,20 +1,29 @@
 ﻿<Page
-    x:Class="mattresses_management_dektop_app.Views.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Style="{StaticResource PageStyle}"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
+    xmlns:Custom="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    x:Class="mattresses_management_dektop_app.Views.MainPage"
+    Style="{StaticResource PageStyle}"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True" 
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" HorizontalAlignment="Left" RequestedTheme="Dark">
+            <Grid.BackgroundTransition>
+                <BrushTransition/>
+            </Grid.BackgroundTransition>
+            <Grid/>
             <!--
                 The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                 Place your content here.
             -->
+            
+            <Custom:DataGrid x:Name="ProductsGrid" HorizontalAlignment="Left" VerticalAlignment="Top"
+                             AlternatingRowBackground="DarkBlue" CanUserReorderColumns="True" CanUserResizeColumns="True"/>
         </Grid>
+ 
     </Grid>
 </Page>
