@@ -9,21 +9,11 @@
     Style="{StaticResource PageStyle}"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True" 
     mc:Ignorable="d">
-    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" HorizontalAlignment="Left" RequestedTheme="Dark">
-            <Grid.BackgroundTransition>
-                <BrushTransition/>
-            </Grid.BackgroundTransition>
-            <Grid/>
-            <!--
-                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
-                Place your content here.
-            -->
-            
-            <Custom:DataGrid x:Name="ProductsGrid" HorizontalAlignment="Left" VerticalAlignment="Top"
+    <ScrollViewer ZoomMode="Disabled"
+            IsVerticalScrollChainingEnabled="True"
+            HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Auto"
+            VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Custom:DataGrid x:Name="ProductsGrid" HorizontalAlignment="Left" VerticalAlignment="Top"
                              AlternatingRowBackground="DarkBlue" CanUserReorderColumns="True" CanUserResizeColumns="True"/>
-        </Grid>
- 
-    </Grid>
+    </ScrollViewer>
 </Page>
