@@ -9,11 +9,11 @@
     Style="{StaticResource PageStyle}"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True" 
     mc:Ignorable="d">
-    <ScrollViewer ZoomMode="Disabled"
-            IsVerticalScrollChainingEnabled="True"
-            HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Auto"
-            VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-        <Custom:DataGrid x:Name="ProductsGrid" HorizontalAlignment="Left" VerticalAlignment="Top"
-                             AlternatingRowBackground="DarkBlue" CanUserReorderColumns="True" CanUserResizeColumns="True"/>
-    </ScrollViewer>
+    <Grid>
+        <Custom:DataGrid x:Name="ProductsGrid"
+                         VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                         GridLinesVisibility="Horizontal" CanUserReorderColumns="True" CanUserResizeColumns="True" IsReadOnly="True" SelectionMode="Single"
+                        HeadersVisibility="All"
+                         />
+    </Grid>
 </Page>
