@@ -62,7 +62,7 @@ namespace mattresses_management_dektop_app
             NavigationService.Navigate(page, launchParam);
             Window.Current.Activate();
             Container.Resolve<ILiveTileService>().SampleUpdate();
-            Container.Resolve<IToastNotificationsService>().ShowToastNotificationSample();
+            //Container.Resolve<IToastNotificationsService>().ShowToastNotificationSample();
 
             // TODO WTS: This is a sample to demonstrate how to add a UserActivity. Please adapt and move this method call to where you consider convenient in your app.
             await UserActivityService.AddSampleUserActivity();
