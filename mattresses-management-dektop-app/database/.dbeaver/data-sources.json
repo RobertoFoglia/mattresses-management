@@ -1,0 +1,64 @@
+{
+	"folders": {},
+	"connections": {
+		"sqlite_jdbc-1750ca01c77-57c6655e2061475c": {
+			"provider": "generic",
+			"driver": "sqlite_jdbc",
+			"name": "mattresses-management.db",
+			"save-password": true,
+			"show-system-objects": true,
+			"read-only": false,
+			"virtual-model-id": "sqlite_jdbc-17508c4e50a-5b595020921e1043",
+			"configuration": {
+				"database": "C:\\Users\\Fogli\\AppData\\Local\\Packages\\3893A310-7367-431D-8657-4A5F0F3778E8_vd41frgj9zpb8\\LocalState\\mattresses-management\\mattresses-management.db",
+				"url": "jdbc:sqlite:C:\\Users\\Fogli\\AppData\\Local\\Packages\\3893A310-7367-431D-8657-4A5F0F3778E8_vd41frgj9zpb8\\LocalState\\mattresses-management\\mattresses-management.db",
+				"type": "dev",
+				"auth-model": "native",
+				"handlers": {}
+			}
+		}
+	},
+	"virtual-models": {
+		"sqlite_jdbc-17508c4e50a-5b595020921e1043": {
+			":Mattress_Products": {
+				"foreign-keys": [
+					{
+						"entity": "database://sqlite_jdbc-17508c4e50a-5b595020921e1043/org.jkiss.dbeaver.ext.generic.model.GenericTable/Mattresses",
+						"constraint": "MATTRESSES_PK",
+						"attributes": {
+							"IdMattress": "Id"
+						}
+					}
+				]
+			},
+			":Mattress_Attributes": {
+				"foreign-keys": [
+					{
+						"entity": "database://sqlite_jdbc-17508c4e50a-5b595020921e1043/org.jkiss.dbeaver.ext.generic.model.GenericTable/Mattresses",
+						"constraint": "MATTRESSES_PK",
+						"attributes": {
+							"IdMattress": "Id"
+						}
+					},
+					{
+						"entity": "database://sqlite_jdbc-17508c4e50a-5b595020921e1043/org.jkiss.dbeaver.ext.generic.model.GenericTable/Attributes",
+						"constraint": "ATTRIBUTES_PK",
+						"attributes": {
+							"IdAttribute": "Id"
+						}
+					}
+				]
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false
+		}
+	}
+}
