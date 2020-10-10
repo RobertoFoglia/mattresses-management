@@ -9,11 +9,30 @@
     Style="{StaticResource PageStyle}"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True" 
     mc:Ignorable="d">
-    <Grid>
+    <Grid  x:Name="RootGrid" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Custom:GridSplitter
+            GripperCursor="Default"
+            HorizontalAlignment="Left"
+            Grid.Column="1"
+            ResizeDirection="Auto"
+            ResizeBehavior="BasedOnAlignment"
+            CursorBehavior="ChangeOnSplitterHover"
+            Width="16">
+            <Custom:GridSplitter.RenderTransform>
+                <TranslateTransform X="-8" />
+            </Custom:GridSplitter.RenderTransform>
+        </Custom:GridSplitter>
+
         <Custom:DataGrid x:Name="ProductsGrid"
+                         Grid.Column="0" Grid.Row="0"
                          VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                          GridLinesVisibility="Horizontal" CanUserReorderColumns="True" CanUserResizeColumns="True" IsReadOnly="True" SelectionMode="Single"
-                        HeadersVisibility="All" AutoGenerateColumns="False"
+                            HeadersVisibility="All" AutoGenerateColumns="False" Margin="0,0,10,0"
                          >
             <Custom:DataGrid.Columns>
                 <Custom:DataGridTextColumn Header="Id" Binding="{Binding Id}" Tag="Id" />
@@ -23,5 +42,6 @@
                 <Custom:DataGridTextColumn Header="Unità di misura" Binding="{Binding MeasureUnit}" Tag="MeasureUnit"/>
             </Custom:DataGrid.Columns>
         </Custom:DataGrid>
+
     </Grid>
 </Page>
