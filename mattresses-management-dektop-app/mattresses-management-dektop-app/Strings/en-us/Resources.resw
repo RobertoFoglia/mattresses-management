@@ -126,7 +126,7 @@
     <comment>Application description</comment>
   </data>
   <data name="Shell_Main.Content" xml:space="preserve">
-    <value>Main</value>
+    <value>Products</value>
     <comment>Navigation view item name for Main</comment>
   </data>
   <data name="ExceptionSettingsStorageExtensionsFileNameIsNullOrEmpty" xml:space="preserve">
@@ -186,7 +186,7 @@
     <comment>The page is not subscribed to the Released event.</comment>
   </data>
   <data name="Shell_SchemeActivationSample.Content" xml:space="preserve">
-    <value>SchemeActivationSample</value>
+    <value>Mattresses</value>
     <comment>Navigation view item name for SchemeActivationSample</comment>
   </data>
   <data name="SchemeActivationSamplePage_Description.Text" xml:space="preserve">
