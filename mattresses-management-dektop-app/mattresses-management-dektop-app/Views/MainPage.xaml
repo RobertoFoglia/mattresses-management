@@ -62,8 +62,9 @@
                 <Button Content="Annulla" Click="TheCancelClick"/>
                 <Button Content="Salva" Margin="10,0,0,0" Click="TheConfirmClick"/>
             </StackPanel>
-            <StackPanel x:Name="ReadingActionLayout" Height="43" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,7.8,0,0">
+            <StackPanel x:Name="ReadingActionLayout" Height="43" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
                 <Button Content="Modifica" Margin="10,0,0,0" Click="TheChangingClick"/>
+                <Button Content="Aggiungi" Margin="10,0,0,0" Click="TheAddingClick"/>
             </StackPanel>
         </StackPanel>
 

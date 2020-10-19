@@ -85,6 +85,14 @@ namespace mattresses_management_dektop_app.Views
             MeasureUnitTextBox.IsReadOnly = enable;
         }
 
+        private void ResetTheFormFields()
+        {
+            NameTextBox.Text = "";
+            DescriptionTextBox.Text = "";
+            UnitaryPriceTextBox.Text = "";
+            MeasureUnitTextBox.Text = "";
+        }
+
         private Boolean areValidateTheFields(out Double price)
         {
             NumberStyles style;
@@ -104,7 +112,8 @@ namespace mattresses_management_dektop_app.Views
             }
 
             var productsHasTheSameName = from product in Products
-                                         where product.Name.Equals(NameTextBox.Text) && product.Id != SelectedProduct.Id
+                                         where product.Name.Equals(NameTextBox.Text) && (product.Id != SelectedProduct.Id ||
+                                         ViewOperationModeTypes.ADDING.Equals(ViewMode))
                                          select product;
 
             if (productsHasTheSameName.Count() != 0)
@@ -138,7 +147,12 @@ namespace mattresses_management_dektop_app.Views
 
                 try
                 {
-                    var savedRowsCount = ProductsService.Update(productToSave);
+                    int savedRowsCount = 0;
+                    if (ViewOperationModeTypes.CHANGING.Equals(ViewMode))
+                        savedRowsCount = ProductsService.Update(productToSave);
+                    else // ViewOperationModeTypes.ADDING
+                        savedRowsCount = ProductsService.Insert(productToSave);
+
                     if (savedRowsCount == 0)
                     {
                         ContentDialog dataErrorsDialog = new ContentDialog
@@ -151,13 +165,28 @@ namespace mattresses_management_dektop_app.Views
                     }
                     else
                     {
-                        var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Product, Product>()).CreateMapper();
-                        mapper.Map<Product, Product>(productToSave, SelectedProduct);
-                        EnterInTheReadingMode();
                         var selectedIndex = ProductsGrid.SelectedIndex;
+                        if (ViewOperationModeTypes.ADDING.Equals(ViewMode))
+                        {
+                            Products.Clear();
+                            ProductsService.FindAll().ForEach(product => Products.Add(product));
+                            selectedIndex = Products.IndexOf(
+                                    (from product in Products
+                                     where product.Name.Equals(productToSave.Name)
+                                     select product).First()
+                                );
+                        }
+                        else
+                        {
+                            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Product, Product>()).CreateMapper();
+                            mapper.Map<Product, Product>(productToSave, SelectedProduct);
+                        }
+
                         ProductsGrid.ItemsSource = null;
                         ProductsGrid.ItemsSource = Products;
                         ProductsGrid.SelectedIndex = selectedIndex;
+
+                        EnterInTheReadingMode();
                         ContentDialog confirmDialog = new ContentDialog
                         {
                             Title = "Operazione conclusa con successo.",
@@ -172,7 +201,7 @@ namespace mattresses_management_dektop_app.Views
                     ContentDialog dataErrorsDialog = new ContentDialog
                     {
                         Title = "Operazione conclusa in modo anomalo.",
-                        Content = "Il prodotto non è stato salvato.",
+                        Content = "Il prodotto può non essere stato salvato.",
                         CloseButtonText = "Ok"
                     };
                     await dataErrorsDialog.ShowAsync();
@@ -202,6 +231,13 @@ namespace mattresses_management_dektop_app.Views
             DisableTheFormFiels(false);
             ProductsGrid.IsReadOnly = true;
             ViewMode = ViewOperationModeTypes.CHANGING;
+        }
+
+        private void TheAddingClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            EnterInTheChangingMode();
+            ViewMode = ViewOperationModeTypes.ADDING;
+            ResetTheFormFields();
         }
     }
 }
