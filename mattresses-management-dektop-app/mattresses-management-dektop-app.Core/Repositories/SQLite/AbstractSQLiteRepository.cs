@@ -32,5 +32,10 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
         {
             return this.connectionPool.Table<E>().ToList();
         }
+
+        public int Update(E item)
+        {
+            return this.connectionPool.Update(item);
+        }
     }
 }
