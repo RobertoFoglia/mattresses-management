@@ -19,7 +19,7 @@ namespace mattresses_management_dektop_app.Views
         private ObservableCollection<Product> Products;
         private IProductsService ProductsService;
         private Product SelectedProduct;
-        private int SelectedIndex;
+        private int PrevSelectedProductIndex;
         private ViewOperationModeTypes ViewMode;
 
         public MainPage()
@@ -42,11 +42,11 @@ namespace mattresses_management_dektop_app.Views
             if (ViewMode.Equals(ViewOperationModeTypes.READING))
             {
                 SetProductDetails();
-                SelectedIndex = ProductsGrid.SelectedIndex;
+                PrevSelectedProductIndex = ProductsGrid.SelectedIndex;
             }
             else
             {
-                ProductsGrid.SelectedIndex = SelectedIndex;
+                ProductsGrid.SelectedIndex = PrevSelectedProductIndex;
             }
         }
 
@@ -185,6 +185,7 @@ namespace mattresses_management_dektop_app.Views
                         ProductsGrid.ItemsSource = null;
                         ProductsGrid.ItemsSource = Products;
                         ProductsGrid.SelectedIndex = selectedIndex;
+                        ProductsGrid.ScrollIntoView(ProductsGrid.SelectedItem, null);
 
                         EnterInTheReadingMode();
                         ContentDialog confirmDialog = new ContentDialog
@@ -212,6 +213,9 @@ namespace mattresses_management_dektop_app.Views
 
         private void TheCancelClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
+            if (ViewOperationModeTypes.ADDING.Equals(ViewMode))
+                ProductsGrid.SelectedIndex = PrevSelectedProductIndex;
+
             EnterInTheReadingMode();
         }
 
@@ -237,6 +241,8 @@ namespace mattresses_management_dektop_app.Views
         {
             EnterInTheChangingMode();
             ViewMode = ViewOperationModeTypes.ADDING;
+            PrevSelectedProductIndex = ProductsGrid.SelectedIndex;
+            ProductsGrid.SelectedIndex = -1;
             ResetTheFormFields();
         }
     }
