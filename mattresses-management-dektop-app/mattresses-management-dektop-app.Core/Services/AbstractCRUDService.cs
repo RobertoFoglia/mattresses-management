@@ -27,5 +27,10 @@ namespace mattresses_management_dektop_app.Core.Services
         {
             return this.CrudRepository.Insert(item);
         }
+
+        public int Update(E item)
+        {
+            return this.CrudRepository.Update(item);
+        }
     }
 }
