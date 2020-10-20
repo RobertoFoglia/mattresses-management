@@ -170,11 +170,7 @@ namespace mattresses_management_dektop_app.Views
                         {
                             Products.Clear();
                             ProductsService.FindAll().ForEach(product => Products.Add(product));
-                            selectedIndex = Products.IndexOf(
-                                    (from product in Products
-                                     where product.Name.Equals(productToSave.Name)
-                                     select product).First()
-                                );
+                            selectedIndex = Products.IndexOf(ProductsService.findByUniqueFieldsInAList(productToSave, Products));                                    
                         }
                         else
                         {
@@ -185,7 +181,6 @@ namespace mattresses_management_dektop_app.Views
                         ProductsGrid.ItemsSource = null;
                         ProductsGrid.ItemsSource = Products;
                         ProductsGrid.SelectedIndex = selectedIndex;
-                        ProductsGrid.ScrollIntoView(ProductsGrid.SelectedItem, null);
 
                         EnterInTheReadingMode();
                         ContentDialog confirmDialog = new ContentDialog

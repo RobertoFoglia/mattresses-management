@@ -2,8 +2,8 @@
 using mattresses_management_dektop_app.Core.Repositories.Api;
 using mattresses_management_dektop_app.Core.Services.Api;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace mattresses_management_dektop_app.Core.Services
 {
@@ -14,6 +14,15 @@ namespace mattresses_management_dektop_app.Core.Services
         public ProductsService(IProductsRepository productsRepository): base(productsRepository)
         {
             this.productsRepository = productsRepository;
+        }
+
+        public Product findByUniqueFieldsInAList(Product searchParamenter, Collection<Product> products)
+        {
+            var productSearch = from product in products
+                           where product.Name.Equals(searchParamenter.Name)
+                           select product;
+            if (productSearch.Count() > 1) throw new ArgumentException("In the products list, there are duplicates.");
+            return productSearch.First();
         }
     }
 }
