@@ -21,7 +21,7 @@
 
         <ProgressRing x:Name="GridProgressBar" IsActive="False" Grid.Column="0" Grid.Row="0" Visibility="Collapsed"></ProgressRing>
         
-        <ScrollViewer x:Name="DetailsView" ZoomMode="Disabled"  Grid.Column="0" Grid.Row="0"
+        <!--<ScrollViewer x:Name="DetailsView" ZoomMode="Disabled"  Grid.Column="0" Grid.Row="0"
             IsVerticalScrollChainingEnabled="True" Padding="16"
             HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Auto"
             VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -39,7 +39,21 @@
                     <Custom:DataGridTextColumn Header="Unità di misura" Binding="{Binding MeasureUnit}" Tag="MeasureUnit"/>
                 </Custom:DataGrid.Columns>
             </Custom:DataGrid>
-        </ScrollViewer>
+        </ScrollViewer>-->
+
+        <Custom:DataGrid x:Name="ProductsGrid"  Grid.Column="0" Grid.Row="0"
+                         VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                         GridLinesVisibility="Horizontal" CanUserReorderColumns="True"
+                             CanUserResizeColumns="True" IsReadOnly="True" SelectionMode="Single"
+                         HeadersVisibility="All" AutoGenerateColumns="False">
+            <Custom:DataGrid.Columns>
+                <Custom:DataGridTextColumn Header="Id" Binding="{Binding Id}" Tag="Id" />
+                <Custom:DataGridTextColumn Header="Nome" Binding="{Binding Name}" Tag="Name"/>
+                <Custom:DataGridTextColumn Header="Descrizione" Binding="{Binding Description}" Tag="Description"/>
+                <Custom:DataGridTextColumn Header="Prezzo unitario (€)" Binding="{Binding Price}" Tag="Price"/>
+                <Custom:DataGridTextColumn Header="Unità di misura" Binding="{Binding MeasureUnit}" Tag="MeasureUnit"/>
+            </Custom:DataGrid.Columns>
+        </Custom:DataGrid>
 
         <Custom:GridSplitter
             GripperCursor="Default"
@@ -58,12 +72,13 @@
             <TextBox Name="DescriptionTextBox" Header="Descrizione" MinWidth="200"/>
             <TextBox Name="UnitaryPriceTextBox" Header="Prezzo unitario (€)" MinWidth="200"/>
             <TextBox Name="MeasureUnitTextBox" Header="Unità di misura" MinWidth="200"/>
-            <StackPanel x:Name="ChangingActionLayout" Height="48" Orientation="Horizontal" HorizontalAlignment="Right"  Margin="0,10,0,0">
+            <StackPanel x:Name="ChangingActionLayout" Height="48" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
                 <Button Content="Annulla" Click="TheCancelClick"/>
                 <Button Content="Salva" Margin="10,0,0,0" Click="TheConfirmClick"/>
             </StackPanel>
-            <StackPanel x:Name="ReadingActionLayout" Height="43" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,7.8,0,0">
+            <StackPanel x:Name="ReadingActionLayout" Height="48" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
                 <Button Content="Modifica" Margin="10,0,0,0" Click="TheChangingClick"/>
+                <Button Content="Aggiungi" Margin="10,0,0,0" Click="TheAddingClick"/>
             </StackPanel>
         </StackPanel>
 
