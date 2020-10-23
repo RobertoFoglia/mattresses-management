@@ -37,5 +37,14 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
         {
             return this.connectionPool.Update(item);
         }
+
+        public int Delete(K key) {
+            return this.connectionPool.Delete<K>(key);
+        }
+
+        public int Delete(E entity)
+        {
+            return this.connectionPool.Delete(entity);
+        }
     }
 }

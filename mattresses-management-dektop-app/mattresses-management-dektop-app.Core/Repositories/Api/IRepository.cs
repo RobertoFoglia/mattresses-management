@@ -13,5 +13,9 @@ namespace mattresses_management_dektop_app.Core.Repositories.Api
         List<E> FindAll();
 
         int Update(E item);
+
+        int Delete(K key);
+
+        int Delete(E entity);
     }
 }

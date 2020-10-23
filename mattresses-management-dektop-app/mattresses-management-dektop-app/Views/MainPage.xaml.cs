@@ -93,7 +93,7 @@ namespace mattresses_management_dektop_app.Views
             MeasureUnitTextBox.Text = "";
         }
 
-        private Boolean areValidateTheFields(out Double price)
+        private Boolean AreValidTheFields(out Double price)
         {
             NumberStyles style;
             CultureInfo culture;
@@ -134,7 +134,7 @@ namespace mattresses_management_dektop_app.Views
         private async void TheConfirmClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             Double price;
-            if (areValidateTheFields(out price))
+            if (AreValidTheFields(out price))
             {
                 var productToSave = new Product
                 {
@@ -239,6 +239,33 @@ namespace mattresses_management_dektop_app.Views
             PrevSelectedProductIndex = ProductsGrid.SelectedIndex;
             ProductsGrid.SelectedIndex = -1;
             ResetTheFormFields();
+        }
+
+        private async void TheDeletingClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            ContentDialog dataErrorsDialog = new ContentDialog
+            {
+                Title = "Eliminazione prodotto.",
+                Content = "Sei sicuro di cancellare il prodotto?",
+                PrimaryButtonText = "Elimina",
+                CloseButtonText = "Annulla"
+            };
+            dataErrorsDialog.PrimaryButtonClick += OkButtonOfTheDeleting;
+            await dataErrorsDialog.ShowAsync();
+        }
+
+        private void OkButtonOfTheDeleting(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            ProductsService.Delete(ProductsGrid.SelectedItem as Product);
+            var selectedIndex = ProductsGrid.SelectedIndex;
+            Products.Remove(ProductsGrid.SelectedItem as Product);
+            if (Products.Count >= selectedIndex)
+            {
+                ProductsGrid.SelectedIndex = selectedIndex;
+            }
+            else {
+                ProductsGrid.SelectedIndex = Products.Count();
+            }
         }
     }
 }
