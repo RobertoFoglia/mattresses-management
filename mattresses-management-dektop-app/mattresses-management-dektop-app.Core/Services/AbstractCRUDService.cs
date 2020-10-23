@@ -1,4 +1,5 @@
-﻿using mattresses_management_dektop_app.Core.Repositories.Api;
+﻿using mattresses_management_dektop_app.Core.Exceptions;
+using mattresses_management_dektop_app.Core.Repositories.Api;
 using mattresses_management_dektop_app.Core.Services.Api;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,22 @@ namespace mattresses_management_dektop_app.Core.Services
         public int Update(E item)
         {
             return this.CrudRepository.Update(item);
+        }
+
+        public int Delete(K key) 
+        {
+            var result = this.CrudRepository.Delete(key);
+            if (result == 0)
+                throw new UserOperationException("Cancellazione non effettuata.");
+            return result;
+        }
+
+        public int Delete(E entity)
+        {
+            var result = this.CrudRepository.Delete(entity);
+            if (result == 0)
+                throw new UserOperationException("Cancellazione non effettuata.");
+            return result;
         }
     }
 }

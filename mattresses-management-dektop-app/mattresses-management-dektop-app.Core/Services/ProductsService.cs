@@ -24,5 +24,13 @@ namespace mattresses_management_dektop_app.Core.Services
             if (productSearch.Count() > 1) throw new ArgumentException("In the products list, there are duplicates.");
             return productSearch.First();
         }
+
+        public new int Delete(Product entity)
+        {
+            if (entity == null) {
+                throw new System.ArgumentException("Devi passare un argomento diverso da null");
+            }
+            return this.productsRepository.Delete(entity);
+        }
     }
 }
