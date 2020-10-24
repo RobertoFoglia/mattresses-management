@@ -2,6 +2,7 @@
 using mattresses_management_dektop_app.Core.Repositories.Api;
 using mattresses_management_dektop_app.Core.Services.Api;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -9,11 +10,15 @@ namespace mattresses_management_dektop_app.Core.Services
 {
     public class ProductsService: AbstractCRUDService<Product, int>, IProductsService
     {
-        private readonly IProductsRepository productsRepository;
+        private readonly IProductsRepository ProductsRepository;
+        private readonly IMattressProductsRepository MattressProductsRepository;
 
-        public ProductsService(IProductsRepository productsRepository): base(productsRepository)
+        public ProductsService(
+            IProductsRepository productsRepository, IMattressProductsRepository mattressProductsRepository
+            ) : base(productsRepository)
         {
-            this.productsRepository = productsRepository;
+            this.ProductsRepository = productsRepository;
+            this.MattressProductsRepository = mattressProductsRepository;
         }
 
         public Product findByUniqueFieldsInAList(Product searchParamenter, Collection<Product> products)
@@ -30,7 +35,7 @@ namespace mattresses_management_dektop_app.Core.Services
             if (entity == null) {
                 throw new System.ArgumentException("Devi passare un argomento diverso da null");
             }
-            return this.productsRepository.Delete(entity);
+            return this.ProductsRepository.Delete(entity);
         }
     }
 }

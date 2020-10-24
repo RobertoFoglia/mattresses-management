@@ -12,5 +12,16 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
         public MattressProductsSQLiteRepository(SQLiteConnection connectionPool) : base(connectionPool)
         {
         }
+
+        public List<Product> GetProductsOfTheMattresses(Mattress mattress) {
+            return this.connectionPool.Query<Product>(
+                "SELECT * FROM " + Product.TableName + 
+                " WHERE " + Product.KeyName + " IN (" +
+                "                   SELECT " + MattressProduct.ProductKey + " FROM " + MattressProduct.TableName + 
+                                    " WHERE " + MattressProduct.MattressKey + "= ?" +
+                                     ")",
+                mattress.Id 
+            );
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace mattresses_management_dektop_app.Views
     {
         private MainViewModel ViewModel => DataContext as MainViewModel;
         private ObservableCollection<Product> Products;
-        private IProductsService ProductsService;
+        private readonly IProductsService ProductsService;
         private Product SelectedProduct;
         private int PrevSelectedProductIndex;
         private ViewOperationModeTypes ViewMode;

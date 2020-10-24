@@ -14,7 +14,7 @@ namespace mattresses_management_dektop_app.Core.Models.entities
         [Unique]
         public string Name { get; set; }
         [Ignore]
-        public List<Product> products { get; set; }
+        public List<Product> Products { get; set; }
         public Double Price { get; set; }
     }
 }

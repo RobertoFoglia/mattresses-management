@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using mattresses_management_dektop_app.Constants;
 using mattresses_management_dektop_app.Context;
 using mattresses_management_dektop_app.Core.Models.entities;
+using mattresses_management_dektop_app.Core.Repositories.Api;
 using mattresses_management_dektop_app.Core.Services.Api;
 using mattresses_management_dektop_app.ViewModels;
 using Microsoft.Practices.Unity;
@@ -16,15 +19,76 @@ namespace mattresses_management_dektop_app.Views
     // your needs and redirected to another of your pages.
     public sealed partial class SchemeActivationSamplePage : Page
     {
-        private readonly IProductsService productsService;
+        private readonly IMattressesService MattressesService;
+        private IProductsService ProductsService;
+
+        private ViewOperationModeTypes ViewMode;
+
         private SchemeActivationSampleViewModel ViewModel
         {
             get { return DataContext as SchemeActivationSampleViewModel; }
         }
-
+            
         public SchemeActivationSamplePage()
         {
             InitializeComponent();
+
+            MattressesService = ApplicationContext.Container.Resolve<IMattressesService>();
+            ProductsService = ApplicationContext.Container.Resolve<IProductsService>();
+
+            MattressesGrid.ItemsSource = new ObservableCollection<Mattress>(MattressesService.FindAll());
+            MattressesGrid.SelectedIndex = 0;
+            MattressesGrid.SelectionChanged += MattressesGrid_SelectionChanged;
+
+            SetProductsOnTheSelectedMattress();
+
+            EnterInTheReadingMode();
         }
+
+        private void MattressesGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            NameTextBox.Text = (MattressesGrid.SelectedItem as Mattress).Name;
+        }
+
+        private void SetProductsOnTheSelectedMattress() {
+            if ((MattressesGrid.SelectedItem as Mattress).Products == null)
+                MattressesService.SetProducts(MattressesGrid.SelectedItem as Mattress);
+            ProductsGrid.ItemsSource = new ObservableCollection<Product>((MattressesGrid.SelectedItem as Mattress).Products);
+        }
+
+        private void EnterInTheReadingMode()
+        {
+            this.ReadingActionLayout.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            this.ChangingActionLayout.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            ViewMode = ViewOperationModeTypes.READING;
+        }
+
+        private void EnterInTheChangingMode()
+        {
+            this.ReadingActionLayout.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            this.ChangingActionLayout.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            MattressesGrid.IsReadOnly = true;
+            ViewMode = ViewOperationModeTypes.CHANGING;
+        }
+
+        private void TheChangingClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        { }
+
+        private void DisableTheFormFiels(bool enable)
+        {
+        }
+
+        private async void TheConfirmClick(object sender, Windows.UI.Xaml.RoutedEventArgs e) { }
+
+        private void TheCancelClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        { }
+
+        private void TheAddingClick(object sender, Windows.UI.Xaml.RoutedEventArgs e) { }
+
+        private async void TheDeletingClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        { }
+
+        private void OkButtonOfTheDeleting(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        { }
     }
-}
+    }
