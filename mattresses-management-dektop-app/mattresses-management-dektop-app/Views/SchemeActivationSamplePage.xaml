@@ -44,8 +44,10 @@
         </Custom:GridSplitter>
 
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Padding="16" Width="Auto">
-            <TextBox Name="NameTextBox" Header="Nome" MinWidth="200" IsReadOnly="True" Margin="0,0,0,10" />
-
+            <TextBox Name="NameTextBox" Header="Nome" MinWidth="200" Margin="0,0,0,10" />
+            
+            <Button Name="ProductAddingButton" Content="Aggiungi prodotto" Margin="0,10,0,10"  Click="TheProductAddingClick"/>
+            
             <Custom:DataGrid x:Name="ProductsGrid"  Grid.Column="0" Grid.Row="0"
                          VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
                          GridLinesVisibility="Horizontal" CanUserReorderColumns="True"
@@ -55,6 +57,7 @@
                     <Custom:DataGridTextColumn Header="Id" Binding="{Binding Id}" Tag="Id" />
                     <Custom:DataGridTextColumn Header="Nome" Binding="{Binding Name}" Tag="Name"/>
                     <Custom:DataGridTextColumn Header="Descrizione" Binding="{Binding Description}" Tag="Description"/>
+                    <Custom:DataGridTextColumn Header="Quantità" Binding="{Binding Number}" Tag="Quantità"/>
                     <Custom:DataGridTextColumn Header="Prezzo unitario (€)" Binding="{Binding Price}" Tag="Price"/>
                     <Custom:DataGridTextColumn Header="Unità di misura" Binding="{Binding MeasureUnit}" Tag="MeasureUnit"/>
                 </Custom:DataGrid.Columns>

@@ -48,6 +48,7 @@ namespace mattresses_management_dektop_app.Views
         private void MattressesGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             NameTextBox.Text = (MattressesGrid.SelectedItem as Mattress).Name;
+            SetProductsOnTheSelectedMattress();
         }
 
         private void SetProductsOnTheSelectedMattress() {
@@ -60,15 +61,20 @@ namespace mattresses_management_dektop_app.Views
         {
             this.ReadingActionLayout.Visibility = Windows.UI.Xaml.Visibility.Visible;
             this.ChangingActionLayout.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            ProductAddingButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             ViewMode = ViewOperationModeTypes.READING;
+            MattressesGrid.IsReadOnly = true;
+            NameTextBox.IsReadOnly = true;
         }
 
         private void EnterInTheChangingMode()
         {
             this.ReadingActionLayout.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             this.ChangingActionLayout.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            MattressesGrid.IsReadOnly = true;
+            ProductAddingButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
             ViewMode = ViewOperationModeTypes.CHANGING;
+            MattressesGrid.IsReadOnly = false;
+            NameTextBox.IsReadOnly = false;
         }
 
         private void TheChangingClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -90,5 +96,10 @@ namespace mattresses_management_dektop_app.Views
 
         private void OkButtonOfTheDeleting(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         { }
+
+        private void TheProductAddingClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+
+        }
     }
     }

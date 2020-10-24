@@ -7,6 +7,8 @@ namespace mattresses_management_dektop_app.Core.Repositories.Api
 {
     public interface IMattressProductsRepository : IRepository<MattressProduct, int>
     {
-        List<Product> GetProductsOfTheMattresses(Mattress mattress);
+        List<Product> GetTheProductsOfTheMattresses(Mattress mattress);
+
+        List<MattressProduct> FindByMattress(Mattress mattress);
     }
 }

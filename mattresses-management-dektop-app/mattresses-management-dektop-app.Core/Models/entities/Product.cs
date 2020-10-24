@@ -19,5 +19,8 @@ namespace mattresses_management_dektop_app.Core.Models.entities
         public Double Price { get; set; }
         [NotNull]
         public String MeasureUnit { get; set; }
+
+        [Ignore]
+        public int Number { get; set; }
     }
 }

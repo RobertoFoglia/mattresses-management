@@ -3,6 +3,7 @@ using mattresses_management_dektop_app.Core.Repositories.Api;
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace mattresses_management_dektop_app.Core.Repositories.SQLite
@@ -13,15 +14,24 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
         {
         }
 
-        public List<Product> GetProductsOfTheMattresses(Mattress mattress) {
+        public List<Product> GetTheProductsOfTheMattresses(Mattress mattress)
+        {
             return this.connectionPool.Query<Product>(
-                "SELECT * FROM " + Product.TableName + 
+                "SELECT * FROM " + Product.TableName +
                 " WHERE " + Product.KeyName + " IN (" +
-                "                   SELECT " + MattressProduct.ProductKey + " FROM " + MattressProduct.TableName + 
+                "                   SELECT " + MattressProduct.ProductKey + " FROM " + MattressProduct.TableName +
                                     " WHERE " + MattressProduct.MattressKey + "= ?" +
                                      ")",
-                mattress.Id 
+                mattress.Id
             );
+        }
+
+        public List<MattressProduct> FindByMattress(Mattress mattress)
+        {
+            return this.connectionPool.Query<MattressProduct>(
+                "SELECT * FROM " + MattressProduct.TableName +
+                " WHERE " + MattressProduct.MattressKey + " = ?"
+                , mattress.Id);
         }
     }
 }
