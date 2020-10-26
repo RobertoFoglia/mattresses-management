@@ -35,7 +35,14 @@ namespace mattresses_management_dektop_app.Core.Services
             if (entity == null) {
                 throw new System.ArgumentException("Devi passare un argomento diverso da null");
             }
+            if (this.BelongsToAMattress(entity)) {
+                throw new System.ArgumentException("Non puoi eliminare il prodotto perchè appartiene ad un materasso.");
+            }
             return this.ProductsRepository.Delete(entity);
+        }
+
+        public bool BelongsToAMattress(Product entity) {
+            return MattressProductsRepository.BelongsToAMattress(entity);
         }
     }
 }

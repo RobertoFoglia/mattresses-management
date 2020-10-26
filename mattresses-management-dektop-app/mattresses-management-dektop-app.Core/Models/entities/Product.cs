@@ -13,7 +13,7 @@ namespace mattresses_management_dektop_app.Core.Models.entities
 
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        [NotNull][Unique]
+        [NotNull] [Unique]
         public string Name { get; set; }
         public String Description { get; set; }
         public Double Price { get; set; }
@@ -22,5 +22,9 @@ namespace mattresses_management_dektop_app.Core.Models.entities
 
         [Ignore]
         public int Number { get; set; }
+        [Ignore]
+        public Double TotalPrice { 
+            get { return Price * Number; } 
+        }
     }
 }

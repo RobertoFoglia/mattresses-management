@@ -33,5 +33,15 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
                 " WHERE " + MattressProduct.MattressKey + " = ?"
                 , mattress.Id);
         }
+
+        public bool BelongsToAMattress(Product entity) {
+            return this.connectionPool
+                .Query<MattressProduct>(
+                    "SELECT * FROM " + MattressProduct.TableName +
+                " WHERE " + MattressProduct.ProductKey + " = ?",
+                    entity.Id
+                )
+                .Count > 0;
+        }
     }
 }

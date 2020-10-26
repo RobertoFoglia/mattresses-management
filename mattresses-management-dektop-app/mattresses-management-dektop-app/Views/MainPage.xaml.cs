@@ -170,7 +170,7 @@ namespace mattresses_management_dektop_app.Views
                         {
                             Products.Clear();
                             ProductsService.FindAll().ForEach(product => Products.Add(product));
-                            selectedIndex = Products.IndexOf(ProductsService.findByUniqueFieldsInAList(productToSave, Products));                                    
+                            selectedIndex = Products.IndexOf(ProductsService.findByUniqueFieldsInAList(productToSave, Products));
                         }
                         else
                         {
@@ -243,6 +243,18 @@ namespace mattresses_management_dektop_app.Views
 
         private async void TheDeletingClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
+            if (ProductsService.BelongsToAMattress(ProductsGrid.SelectedItem as Product))
+            {
+                ContentDialog belongsToAMattressError = new ContentDialog
+                {
+                    Title = "Eliminazione prodotto.",
+                    Content = "Non puoi eliminare il prodotto perchè appartiene ad un materasso.",
+                    CloseButtonText = "OK"
+                };
+                await belongsToAMattressError.ShowAsync();
+                return;
+            }
+
             ContentDialog dataErrorsDialog = new ContentDialog
             {
                 Title = "Eliminazione prodotto.",
@@ -263,7 +275,8 @@ namespace mattresses_management_dektop_app.Views
             {
                 ProductsGrid.SelectedIndex = selectedIndex;
             }
-            else {
+            else
+            {
                 ProductsGrid.SelectedIndex = Products.Count();
             }
         }
