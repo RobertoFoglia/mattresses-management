@@ -5,9 +5,14 @@ using System.Text;
 
 namespace mattresses_management_dektop_app.Core.Models.entities
 {
-    [Table("Mattress_Attributes")]
+    [Table(MattressAttribute.TableName)]
     public class MattressAttribute
     {
+        public const string TableName = "Mattress_Attributes";
+        public const string KeyName = "Id";
+        public const string MattressKey = "IdMattress";
+        public const string AttributeKey = "IdAttribute";
+
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         [NotNull]

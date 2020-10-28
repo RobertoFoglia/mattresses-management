@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reflection.Emit;
 using mattresses_management_dektop_app.Constants;
 using mattresses_management_dektop_app.Context;
 using mattresses_management_dektop_app.Core.Models.entities;
@@ -10,6 +11,7 @@ using mattresses_management_dektop_app.ViewModels;
 using Microsoft.Practices.Unity;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Attribute = mattresses_management_dektop_app.Core.Models.entities.Attribute;
 
 namespace mattresses_management_dektop_app.Views
 {
@@ -20,7 +22,8 @@ namespace mattresses_management_dektop_app.Views
     public sealed partial class SchemeActivationSamplePage : Page
     {
         private readonly IMattressesService MattressesService;
-        private IProductsService ProductsService;
+        private readonly IProductsService ProductsService;
+        private readonly IAttributesService AttributesService;
 
         private ViewOperationModeTypes ViewMode;
 
@@ -35,12 +38,11 @@ namespace mattresses_management_dektop_app.Views
 
             MattressesService = ApplicationContext.Container.Resolve<IMattressesService>();
             ProductsService = ApplicationContext.Container.Resolve<IProductsService>();
+            AttributesService = ApplicationContext.Container.Resolve<IAttributesService>();
 
             MattressesGrid.ItemsSource = new ObservableCollection<Mattress>(MattressesService.FindAll());
             MattressesGrid.SelectedIndex = 0;
             MattressesGrid.SelectionChanged += MattressesGrid_SelectionChanged;
-
-            SetProductsOnTheSelectedMattress();
 
             EnterInTheReadingMode();
         }
@@ -49,6 +51,14 @@ namespace mattresses_management_dektop_app.Views
         {
             NameTextBox.Text = (MattressesGrid.SelectedItem as Mattress).Name;
             SetProductsOnTheSelectedMattress();
+            SetAttributesOnTheSelectedMattress();
+        }
+
+        private void SetAttributesOnTheSelectedMattress()
+        {
+            if ((MattressesGrid.SelectedItem as Mattress).Attributes == null)
+                MattressesService.SetAttributes(MattressesGrid.SelectedItem as Mattress);
+            AttributesRepeater.ItemsSource = new ObservableCollection<Attribute>((MattressesGrid.SelectedItem as Mattress).Attributes);
         }
 
         private void SetProductsOnTheSelectedMattress() {
