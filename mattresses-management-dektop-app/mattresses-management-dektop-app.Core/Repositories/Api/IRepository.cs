@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace mattresses_management_dektop_app.Core.Repositories.Api
@@ -17,5 +18,7 @@ namespace mattresses_management_dektop_app.Core.Repositories.Api
         int Delete(K key);
 
         int Delete(E entity);
+
+        List<E> Where(Expression<Func<E, bool>> predExpr);
     }
 }

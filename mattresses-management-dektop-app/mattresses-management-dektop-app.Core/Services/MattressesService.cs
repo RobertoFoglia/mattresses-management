@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using Attribute = mattresses_management_dektop_app.Core.Models.entities.Attribute;
 
 namespace mattresses_management_dektop_app.Core.Services
 {
@@ -13,20 +15,23 @@ namespace mattresses_management_dektop_app.Core.Services
         private readonly IMattressesRepository MattressesRepository;
         private readonly IMattressProductsRepository MattressProductsRepository;
         private readonly IMattressAttributesRepository MattressAttributesRepository;
+        private readonly IAttributesService attributesService;
 
         public MattressesService(
             IMattressesRepository mattressesRepository,
             IMattressProductsRepository mattressProductsRepository,
-            IMattressAttributesRepository mattressAttributesRepository
+            IMattressAttributesRepository mattressAttributesRepository,
+            IAttributesService attributesService
             )
             : base(mattressesRepository)
         {
             this.MattressesRepository = mattressesRepository;
             this.MattressProductsRepository = mattressProductsRepository;
             this.MattressAttributesRepository = mattressAttributesRepository;
+            this.attributesService = attributesService;
         }
 
-        public Mattress SetAttributes(Mattress mattress) {
+        public Mattress GetAttributes(Mattress mattress) {
             if (mattress == null)
             {
                 mattress = new Mattress();
@@ -49,10 +54,82 @@ namespace mattresses_management_dektop_app.Core.Services
                 }
             });
 
+            mattress.Attributes = CalculateAndOrderTheAttributes(mattress);
+
             return mattress;
         }
 
-        public Mattress SetProducts(Mattress mattress)
+        private List<Attribute> CalculateAndOrderTheAttributes(Mattress mattress)
+        {
+            var tmp = new List<Attribute>();
+            Attribute[] array = { new Attribute(), new Attribute(), new Attribute() };
+
+            Attribute assicurazione = null;
+
+            double productsSum = 0;
+            productsSum += mattress.Products.Sum<Product>(product => product.TotalPrice);
+            var attributesForTheGain = 0.0;
+
+            mattress.Attributes.ForEach(
+                attribute =>
+                {
+                    if (attribute.Name.ToUpper().Contains("PRIMA"))
+                    {
+                        array[2] = attribute;
+                        attribute.Price = productsSum * attribute.Percentage / 100;
+                        return;
+                    }
+                    if (attribute.Name.ToUpper().Contains("MANODOPERA"))
+                    {
+                        array[1] = attribute;
+                        return;
+                    }
+                    if (attribute.Name.ToUpper().Contains("GESTIONE"))
+                    {
+                        array[0] = attribute;
+                        return;
+                    }
+                    if (attribute.Name.ToUpper().Contains("ASSICURAZIONE"))
+                    {
+                        assicurazione = attribute;
+                        assicurazione.Price = mattress.Price * attribute.Percentage / 100;
+                        attributesForTheGain += attribute.Price;
+                        return;
+                    }
+                    tmp.Add(attribute);
+                    attributesForTheGain += attribute.Price;
+                });
+
+            tmp.Insert(0,
+                new Attribute()
+                {
+                    Name = "Costo materasso",
+                    Price = productsSum + array.ToList().Sum<Attribute>(attribute => attribute.Price)
+                }
+            );
+            tmp.Insert(1,
+                new Attribute()
+                {
+                    Name = "Prezzo di vendita",
+                    Price = mattress.Price
+                }
+            );
+            tmp.Insert(2, assicurazione);
+
+            array.ToList().ForEach(attribute => tmp.Insert(0, attribute));
+
+            tmp.Add(
+                new Attribute()
+                {
+                    Name = "RICAVO",
+                    Price = mattress.Price - attributesForTheGain
+                }
+                );
+
+            return tmp;
+        }
+
+        public Mattress GetProducts(Mattress mattress)
         {
             if (mattress == null)
             {
@@ -77,6 +154,22 @@ namespace mattresses_management_dektop_app.Core.Services
                 }
                 );
 
+            return mattress;
+        }
+
+        public Mattress GetDefaultAttributes(Mattress mattress)
+        {
+            if (mattress == null)
+            {
+                mattress = new Mattress();
+            }
+
+            if (mattress.Products == null) {
+                mattress.Products = new List<Product>();
+            }
+
+            mattress.Attributes = attributesService.GetDefaultAttributes();
+            mattress.Attributes = CalculateAndOrderTheAttributes(mattress);
             return mattress;
         }
     }

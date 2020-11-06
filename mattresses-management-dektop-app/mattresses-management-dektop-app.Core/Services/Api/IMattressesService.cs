@@ -7,8 +7,10 @@ namespace mattresses_management_dektop_app.Core.Services.Api
 {
     public interface IMattressesService : ICRUDService<Mattress, int>
     {
-        Mattress SetProducts(Mattress mattress);
+        Mattress GetProducts(Mattress mattress);
 
-        Mattress SetAttributes(Mattress mattress);
+        Mattress GetAttributes(Mattress mattress);
+
+        Mattress GetDefaultAttributes(Mattress mattress);
     }
 }

@@ -21,5 +21,10 @@ namespace mattresses_management_dektop_app.Core.Services
             this.AttributesRepository = attributesRepository;
             this.MattressAttributesRepository = mattressAttributesRepository;
         }
+
+        public List<Attribute> GetDefaultAttributes()
+        {
+            return AttributesRepository.Where(attribute => attribute.Default);
+        }
     }
 }

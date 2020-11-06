@@ -19,5 +19,6 @@ namespace mattresses_management_dektop_app.Core.Models.entities
 
         public Double Price { get; set; }
         public Double Percentage { get; set; }
+        public Boolean Default { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using System.Reflection.Emit;
 using System.Reflection.Metadata.Ecma335;
 using mattresses_management_dektop_app.Constants;
 using mattresses_management_dektop_app.Context;
+using mattresses_management_dektop_app.Core.Factories;
 using mattresses_management_dektop_app.Core.Models.entities;
 using mattresses_management_dektop_app.Core.Repositories.Api;
 using mattresses_management_dektop_app.Core.Services.Api;
@@ -28,6 +29,10 @@ namespace mattresses_management_dektop_app.Views
         private readonly IAttributesService AttributesService;
 
         private ViewOperationModeTypes ViewMode;
+        private int PrevSelectedProductIndex;
+
+        private MattressFactory mattressFactory;
+        private Mattress newMattress;
 
         private SchemeActivationSampleViewModel ViewModel
         {
@@ -41,6 +46,8 @@ namespace mattresses_management_dektop_app.Views
             MattressesService = ApplicationContext.Container.Resolve<IMattressesService>();
             ProductsService = ApplicationContext.Container.Resolve<IProductsService>();
             AttributesService = ApplicationContext.Container.Resolve<IAttributesService>();
+            mattressFactory = ApplicationContext.Container.Resolve<MattressFactory>();
+
 
             MattressesGrid.ItemsSource = new ObservableCollection<Mattress>(MattressesService.FindAll());
             MattressesGrid.SelectedIndex = 0;
@@ -60,86 +67,16 @@ namespace mattresses_management_dektop_app.Views
         {
             if ((MattressesGrid.SelectedItem as Mattress).Attributes == null)
             {
-                MattressesService.SetAttributes(MattressesGrid.SelectedItem as Mattress);
-                (MattressesGrid.SelectedItem as Mattress).Attributes =
-                    OrderTheAttributesInTheView((MattressesGrid.SelectedItem as Mattress));
+                MattressesService.GetAttributes(MattressesGrid.SelectedItem as Mattress);
             }
-            AttributesRepeater.ItemsSource = new ObservableCollection<Attribute>((MattressesGrid.SelectedItem as Mattress).Attributes);
-        }
-
-        private List<Attribute> OrderTheAttributesInTheView(Mattress mattress)
-        {
-            var tmp = new List<Attribute>();
-            Attribute[] array = new Attribute[3];
-
-            Attribute assicurazione = null;
-
-            var productsSum = mattress.Products.Sum<Product>(product => product.TotalPrice);
-            var attributesForTheGain = 0.0;
-
-            mattress.Attributes.ForEach(
-                attribute =>
-                {
-                    if (attribute.Name.ToUpper().Contains("PRIMA"))
-                    {
-                        array[2] = attribute;
-                        attribute.Price = productsSum * attribute.Percentage / 100;
-                        return;
-                    }
-                    if (attribute.Name.ToUpper().Contains("MANODOPERA"))
-                    {
-                        array[1] = attribute;
-                        return;
-                    }
-                    if (attribute.Name.ToUpper().Contains("GESTIONE"))
-                    {
-                        array[0] = attribute;
-                        return;
-                    }
-                    if (attribute.Name.ToUpper().Contains("ASSICURAZIONE"))
-                    {
-                        assicurazione = attribute;
-                        assicurazione.Price = mattress.Price * attribute.Percentage / 100;
-                        attributesForTheGain += attribute.Price;
-                        return;
-                    }
-                    tmp.Add(attribute);
-                    attributesForTheGain += attribute.Price;
-                });
-
-            tmp.Insert(0,
-                new Attribute()
-                {
-                    Name = "Costo materasso",
-                    Price = productsSum + array.ToList().Sum<Attribute>(attribute => attribute.Price)
-                }
-            );
-            tmp.Insert(1,
-                new Attribute()
-                {
-                    Name = "Prezzo di vendita",
-                    Price = mattress.Price
-                }
-            );
-            tmp.Insert(2, assicurazione);
-
-            array.ToList().ForEach(attribute => tmp.Insert(0, attribute));
-
-            tmp.Add(
-                new Attribute()
-                {
-                    Name = "RICAVO",
-                    Price = mattress.Price - attributesForTheGain
-                }
-                );
-
-            return tmp;
+            AttributesRepeater.ItemsSource = new ObservableCollection<Attribute>(
+                (MattressesGrid.SelectedItem as Mattress).Attributes);
         }
 
         private void SetProductsOnTheSelectedMattress()
         {
             if ((MattressesGrid.SelectedItem as Mattress).Products == null)
-                MattressesService.SetProducts(MattressesGrid.SelectedItem as Mattress);
+                MattressesService.GetProducts(MattressesGrid.SelectedItem as Mattress);
             ProductsGrid.ItemsSource = new ObservableCollection<Product>((MattressesGrid.SelectedItem as Mattress).Products);
         }
 
@@ -147,9 +84,9 @@ namespace mattresses_management_dektop_app.Views
         {
             this.ReadingActionLayout.Visibility = Windows.UI.Xaml.Visibility.Visible;
             this.ChangingActionLayout.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-            ProductAddingButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            ProductsButtons.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             ViewMode = ViewOperationModeTypes.READING;
-            MattressesGrid.IsReadOnly = true;
+            MattressesGrid.IsReadOnly = false;
             NameTextBox.IsReadOnly = true;
         }
 
@@ -157,9 +94,9 @@ namespace mattresses_management_dektop_app.Views
         {
             this.ReadingActionLayout.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             this.ChangingActionLayout.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            ProductAddingButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            ProductsButtons.Visibility = Windows.UI.Xaml.Visibility.Visible;
             ViewMode = ViewOperationModeTypes.CHANGING;
-            MattressesGrid.IsReadOnly = false;
+            MattressesGrid.IsReadOnly = true;
             NameTextBox.IsReadOnly = false;
         }
 
@@ -170,12 +107,36 @@ namespace mattresses_management_dektop_app.Views
         {
         }
 
-        private async void TheConfirmClick(object sender, Windows.UI.Xaml.RoutedEventArgs e) { }
+        private async void TheConfirmClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+
+        }
 
         private void TheCancelClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        { }
+        {
+            if (ViewOperationModeTypes.ADDING.Equals(ViewMode))
+            {
+                ProductsGrid.SelectedIndex = PrevSelectedProductIndex;
+                newMattress = null;
+            }
 
-        private void TheAddingClick(object sender, Windows.UI.Xaml.RoutedEventArgs e) { }
+            EnterInTheReadingMode();
+        }
+
+        private void TheAddingClick(object sender, Windows.UI.Xaml.RoutedEventArgs e) {
+            EnterInTheChangingMode();
+            ViewMode = ViewOperationModeTypes.ADDING;
+            PrevSelectedProductIndex = ProductsGrid.SelectedIndex;
+            ProductsGrid.SelectedIndex = -1;
+            ResetTheFormFields();
+        }
+
+        private void ResetTheFormFields()
+        {
+            ProductsGrid.ItemsSource = null;
+            newMattress = mattressFactory.GetNewMattressInstances();
+            AttributesRepeater.ItemsSource = new ObservableCollection<Attribute>(newMattress.Attributes);
+        }
 
         private async void TheDeletingClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         { }
@@ -184,6 +145,11 @@ namespace mattresses_management_dektop_app.Views
         { }
 
         private void TheProductAddingClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+
+        }
+
+        private void ProductDeleteButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
 
         }

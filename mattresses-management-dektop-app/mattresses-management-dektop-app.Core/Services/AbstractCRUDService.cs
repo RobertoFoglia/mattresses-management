@@ -3,6 +3,7 @@ using mattresses_management_dektop_app.Core.Repositories.Api;
 using mattresses_management_dektop_app.Core.Services.Api;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace mattresses_management_dektop_app.Core.Services
@@ -48,6 +49,11 @@ namespace mattresses_management_dektop_app.Core.Services
             if (result == 0)
                 throw new UserOperationException("Cancellazione non effettuata.");
             return result;
+        }
+
+        public List<E> Where(Expression<Func<E, bool>> predExpr)
+        {
+            return this.CrudRepository.Where(predExpr);
         }
     }
 }

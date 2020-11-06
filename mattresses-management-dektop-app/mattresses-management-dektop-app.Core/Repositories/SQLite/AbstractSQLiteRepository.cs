@@ -2,6 +2,7 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace mattresses_management_dektop_app.Core.Repositories.SQLite
@@ -45,6 +46,11 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
         public int Delete(E entity)
         {
             return this.connectionPool.Delete(entity);
+        }
+
+        public List<E> Where(Expression<Func<E, bool>> predExpr)
+        {
+            return this.connectionPool.Table<E>().Where(predExpr).ToList();
         }
     }
 }

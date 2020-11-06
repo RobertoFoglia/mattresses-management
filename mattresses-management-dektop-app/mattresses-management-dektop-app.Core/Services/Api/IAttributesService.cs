@@ -8,5 +8,6 @@ namespace mattresses_management_dektop_app.Core.Services.Api
 {
     public interface IAttributesService : ICRUDService<Attribute, int>
     {
+        List<Attribute> GetDefaultAttributes();
     }
 }
