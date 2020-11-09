@@ -12,12 +12,12 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
         public SQLiteConnection connectionPool;
         public AbstractSQLiteRepository(SQLiteConnection connectionPool) {
             this.connectionPool = connectionPool;
-            InitTable();
+            this.InitTable();
         }
 
-        public void InitTable()
+        public virtual CreateTableResult InitTable()
         {
-            this.connectionPool.CreateTable<E>();
+            return this.connectionPool.CreateTable<E>();
         }
 
         public E Find(K key)
