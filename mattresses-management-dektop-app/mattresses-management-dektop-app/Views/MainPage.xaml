@@ -23,7 +23,7 @@
                          VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
                          GridLinesVisibility="Horizontal" CanUserReorderColumns="True"
                              CanUserResizeColumns="True" IsReadOnly="True" SelectionMode="Single"
-                         HeadersVisibility="All" AutoGenerateColumns="False">
+                         HeadersVisibility="All" AutoGenerateColumns="False" Margin="10">
             <Custom:DataGrid.Columns>
                 <Custom:DataGridTextColumn Header="Id" Binding="{Binding Id}" Tag="Id" />
                 <Custom:DataGridTextColumn Header="Nome" Binding="{Binding Name}" Tag="Name"/>
@@ -45,7 +45,7 @@
             </Custom:GridSplitter.RenderTransform>
         </Custom:GridSplitter>
 
-        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Padding="16" Width="Auto">
+        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Margin="23" Width="Auto">
             <TextBox Name="NameTextBox" Header="Nome" MinWidth="200" IsReadOnly="True"/>
             <TextBox Name="DescriptionTextBox" Header="Descrizione" MinWidth="200"/>
             <TextBox Name="UnitaryPriceTextBox" Header="Prezzo unitario (€)" MinWidth="200"/>

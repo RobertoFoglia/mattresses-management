@@ -29,7 +29,7 @@ namespace mattresses_management_dektop_app.Views
         private readonly IAttributesService AttributesService;
 
         private ViewOperationModeTypes ViewMode;
-        private int PrevSelectedProductIndex;
+        private int PrevSelectedMattressIndex;
 
         private MattressFactory mattressFactory;
         private Mattress newMattress;
@@ -57,6 +57,11 @@ namespace mattresses_management_dektop_app.Views
         }
 
         private void MattressesGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetDetailsOfTheSelectedMattress();
+        }
+
+        private void SetDetailsOfTheSelectedMattress()
         {
             NameTextBox.Text = (MattressesGrid.SelectedItem as Mattress).Name;
             SetProductsOnTheSelectedMattress();
@@ -116,8 +121,9 @@ namespace mattresses_management_dektop_app.Views
         {
             if (ViewOperationModeTypes.ADDING.Equals(ViewMode))
             {
-                ProductsGrid.SelectedIndex = PrevSelectedProductIndex;
+                MattressesGrid.SelectedIndex = PrevSelectedMattressIndex;
                 newMattress = null;
+                SetDetailsOfTheSelectedMattress();
             }
 
             EnterInTheReadingMode();
@@ -126,7 +132,7 @@ namespace mattresses_management_dektop_app.Views
         private void TheAddingClick(object sender, Windows.UI.Xaml.RoutedEventArgs e) {
             EnterInTheChangingMode();
             ViewMode = ViewOperationModeTypes.ADDING;
-            PrevSelectedProductIndex = ProductsGrid.SelectedIndex;
+            PrevSelectedMattressIndex = MattressesGrid.SelectedIndex;
             ProductsGrid.SelectedIndex = -1;
             ResetTheFormFields();
         }
@@ -134,12 +140,14 @@ namespace mattresses_management_dektop_app.Views
         private void ResetTheFormFields()
         {
             ProductsGrid.ItemsSource = null;
-            newMattress = mattressFactory.GetNewMattressInstances();
+            var newMattress = mattressFactory.GetNewMattressInstances();
             AttributesRepeater.ItemsSource = new ObservableCollection<Attribute>(newMattress.Attributes);
+            NameTextBox.Text = "";
         }
 
         private async void TheDeletingClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        { }
+        {
+        }
 
         private void OkButtonOfTheDeleting(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         { }
