@@ -10,8 +10,10 @@ namespace mattresses_management_dektop_app.Core.Models.entities
     {
         public const string TableName = "Products";
         public const string KeyName = "Id";
+        public const string NameOfName = "Name";
+        public const string DescriptionName = "Description";
 
-        [PrimaryKey, AutoIncrement]
+       [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         [NotNull] [Unique]
         public string Name { get; set; }

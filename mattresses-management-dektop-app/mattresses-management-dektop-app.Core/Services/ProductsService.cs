@@ -44,5 +44,10 @@ namespace mattresses_management_dektop_app.Core.Services
         public bool BelongsToAMattress(Product entity) {
             return MattressProductsRepository.BelongsToAMattress(entity);
         }
+
+        public List<Product> FindByALikeWithNameAndDescription(string name, string description)
+        {
+            return ProductsRepository.FindByALikeWithNameAndDescription(name, description);
+        }
     }
 }

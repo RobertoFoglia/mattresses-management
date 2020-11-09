@@ -129,7 +129,8 @@ namespace mattresses_management_dektop_app.Views
             EnterInTheReadingMode();
         }
 
-        private void TheAddingClick(object sender, Windows.UI.Xaml.RoutedEventArgs e) {
+        private void TheAddingClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
             EnterInTheChangingMode();
             ViewMode = ViewOperationModeTypes.ADDING;
             PrevSelectedMattressIndex = MattressesGrid.SelectedIndex;
@@ -141,6 +142,7 @@ namespace mattresses_management_dektop_app.Views
         {
             ProductsGrid.ItemsSource = null;
             var newMattress = mattressFactory.GetNewMattressInstances();
+            ProductsGrid.ItemsSource = new ObservableCollection<Product>(new List<Product>());
             AttributesRepeater.ItemsSource = new ObservableCollection<Attribute>(newMattress.Attributes);
             NameTextBox.Text = "";
         }
@@ -154,7 +156,12 @@ namespace mattresses_management_dektop_app.Views
 
         private void TheProductAddingClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-
+            var iterator = ProductsGridForAdding.SelectedItems.GetEnumerator();
+            while (iterator.MoveNext())
+            {
+                (ProductsGrid.ItemsSource as ObservableCollection<Product>).Add(iterator.Current as Product);
+            }
+            SearchByALikeOfNameAndDecription();
         }
 
         private void ProductDeleteButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -164,7 +171,30 @@ namespace mattresses_management_dektop_app.Views
 
         private void ProductSearchingButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
+            SearchByALikeOfNameAndDecription();
+        }
 
+        private void SearchByALikeOfNameAndDecription()
+        {
+
+            var searchedProducts = ProductsService.FindByALikeWithNameAndDescription(NameTextBoxForSearching.Text, DescriptionTextBoxForSearching.Text);
+            var addedProducts = ProductsGrid.ItemsSource as ObservableCollection<Product>;
+            var iterator = addedProducts.GetEnumerator();
+            while (iterator.MoveNext())
+            {
+                var searchedItems = searchedProducts.Where(product => product.Id == (iterator.Current as Product).Id);
+                if (searchedItems.Count() != 0) {
+                    searchedProducts.Remove(searchedItems.First());
+                }
+            }
+
+            ProductsGridForAdding.ItemsSource = new ObservableCollection<Product>(searchedProducts);
+        }
+
+        private void ToggleButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            NameTextBoxForSearching.Text = DescriptionTextBoxForSearching.Text = "";
+            SearchByALikeOfNameAndDecription();
         }
     }
 }

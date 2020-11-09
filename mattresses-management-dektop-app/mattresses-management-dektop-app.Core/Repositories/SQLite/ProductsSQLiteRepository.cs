@@ -12,5 +12,17 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
         public ProductsSQLiteRepository(SQLiteConnection connectionPool) : base(connectionPool)
         {
         }
+
+        public List<Product> FindByALikeWithNameAndDescription(string name, string description)
+        {
+            name ='%' + name.Replace(' ', '%') + '%';
+            description = '%' + description.Replace(' ', '%') + '%';
+            return this.connectionPool
+                .Query<Product>(
+                    "SELECT * FROM " + Product.TableName +
+                " WHERE  " + Product.NameOfName + " LIKE ? AND " + Product.DescriptionName + " LIKE ?",
+                    name, description
+                ); ;
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace mattresses_management_dektop_app.Core.Services.Api
         Product findByUniqueFieldsInAList(Product searchParamenter, Collection<Product> products);
 
         bool BelongsToAMattress(Product entity);
+        List<Product> FindByALikeWithNameAndDescription(string name, string description);
     }
 }
