@@ -53,6 +53,9 @@ namespace mattresses_management_dektop_app.Views
         private void SetProductDetails()
         {
             var product = (ProductsGrid.SelectedItem as Product);
+
+            if (product == null) return;
+
             SelectedProduct = product;
             if (product.Name != null)
                 NameTextBox.Text = product.Name;
@@ -138,7 +141,7 @@ namespace mattresses_management_dektop_app.Views
             {
                 var productToSave = new Product
                 {
-                    Id = SelectedProduct.Id,
+                    Id = SelectedProduct == null ? 0 : SelectedProduct.Id,
                     Name = NameTextBox.Text,
                     Description = DescriptionTextBox.Text,
                     Price = price,
@@ -221,6 +224,17 @@ namespace mattresses_management_dektop_app.Views
             this.ChangingActionLayout.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             this.DisableTheFormFiels(true);
             ViewMode = ViewOperationModeTypes.READING;
+
+            if ((ProductsGrid.ItemsSource as ObservableCollection<Product>).Count == 0)
+            {
+                ResetTheFormFields();
+                DeletingButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                ChangingButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            }
+            else {
+                DeletingButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                ChangingButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            }
         }
 
         private void EnterInTheChangingMode()
@@ -279,6 +293,7 @@ namespace mattresses_management_dektop_app.Views
             {
                 ProductsGrid.SelectedIndex = Products.Count();
             }
+            EnterInTheReadingMode();
         }
     }
 }

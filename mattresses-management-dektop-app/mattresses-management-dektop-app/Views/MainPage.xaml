@@ -55,9 +55,9 @@
                 <Button Content="Salva" Margin="10,0,0,0" Click="TheConfirmClick"/>
             </StackPanel>
             <StackPanel x:Name="ReadingActionLayout" Height="48" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,10,0,0">
-                <Button Content="Aggiungi" Margin="10,0,0,0"  Click="TheAddingClick"/>
-                <Button Content="Modifica" Margin="10,0,0,0"  Click="TheChangingClick"/>
-                <Button Content="Elimina" Margin="10,0,0,0"   Click="TheDeletingClick"/>
+                <Button x:Name="AddingButton" Content="Aggiungi" Margin="10,0,0,0"  Click="TheAddingClick"/>
+                <Button x:Name="ChangingButton" Content="Modifica" Margin="10,0,0,0"  Click="TheChangingClick"/>
+                <Button x:Name="DeletingButton" Content="Elimina" Margin="10,0,0,0"   Click="TheDeletingClick"/>
             </StackPanel>
         </StackPanel>
 
