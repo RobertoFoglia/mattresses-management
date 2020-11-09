@@ -26,6 +26,8 @@ namespace mattresses_management_dektop_app.Configurations
         }
 
         private void Init() {
+            this.container.RegisterInstance<SQLiteConfig>(_sQLiteConfig);
+
             this.container.RegisterInstance<IAttributesRepository>(new AttributesSQLiteRepository(this._sqlLiteConnection));
             this.container.RegisterInstance<IMattressAttributesRepository>(new MattressesAttributesSQLiteRepository(this._sqlLiteConnection));
             this.container.RegisterInstance<IMattressesRepository>(new MattressesSQLiteRepository(this._sqlLiteConnection));
