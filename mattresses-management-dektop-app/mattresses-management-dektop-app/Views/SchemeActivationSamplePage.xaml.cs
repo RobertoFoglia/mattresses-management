@@ -161,5 +161,10 @@ namespace mattresses_management_dektop_app.Views
         {
 
         }
+
+        private void ProductSearchingButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+
+        }
     }
 }
