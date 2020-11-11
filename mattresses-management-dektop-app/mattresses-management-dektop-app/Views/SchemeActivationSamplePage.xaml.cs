@@ -122,7 +122,7 @@ namespace mattresses_management_dektop_app.Views
 
         private async void TheConfirmClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-
+            SecondBlade.IsOpen = false;
         }
 
         private void TheCancelClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -135,6 +135,7 @@ namespace mattresses_management_dektop_app.Views
             }
 
             EnterInTheReadingMode();
+            SecondBlade.IsOpen = false;
         }
 
         private void TheAddingClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -174,6 +175,7 @@ namespace mattresses_management_dektop_app.Views
             }
             newMattress.Products = (ProductsGrid.ItemsSource as ObservableCollection<Product>).ToList();
             UpdateAttributesRepeater();
+            ProductsGrid.SelectedIndex = 0;
         }
 
         private void UpdateAttributesRepeater()
@@ -198,7 +200,6 @@ namespace mattresses_management_dektop_app.Views
 
         private void SearchByALikeOfNameAndDecription()
         {
-
             var searchedProducts = ProductsService.FindByALikeWithNameAndDescription(NameTextBoxForSearching.Text, DescriptionTextBoxForSearching.Text);
             var addedProducts = ProductsGrid.ItemsSource as ObservableCollection<Product>;
             var iterator = addedProducts.GetEnumerator();
