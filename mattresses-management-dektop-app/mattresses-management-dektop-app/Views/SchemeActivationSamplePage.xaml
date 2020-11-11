@@ -67,16 +67,16 @@
                     <Custom:DataGrid x:Name="ProductsGrid"  Grid.Column="0" Grid.Row="0"
                          VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
                          GridLinesVisibility="Horizontal" CanUserReorderColumns="True" Margin="10"
-                             CanUserResizeColumns="True" IsReadOnly="True" SelectionMode="Single"
+                             CanUserResizeColumns="True" SelectionMode="Single"
                          HeadersVisibility="All" AutoGenerateColumns="False">
                         <Custom:DataGrid.Columns>
-                            <Custom:DataGridTextColumn Header="Id" Binding="{Binding Id}" Tag="Id" />
-                            <Custom:DataGridTextColumn Header="Nome" Binding="{Binding Name}" Tag="Name"/>
-                            <Custom:DataGridTextColumn Header="Descrizione" Binding="{Binding Description}" Tag="Description"/>
-                            <Custom:DataGridTextColumn Header="Unità di misura" Binding="{Binding MeasureUnit}" Tag="MeasureUnit"/>
+                            <Custom:DataGridTextColumn Header="Id" Binding="{Binding Id}" Tag="Id" IsReadOnly="True"/>
+                            <Custom:DataGridTextColumn Header="Nome" Binding="{Binding Name}" Tag="Name" IsReadOnly="True"/>
+                            <Custom:DataGridTextColumn Header="Descrizione" Binding="{Binding Description}" Tag="Description" IsReadOnly="True"/>
+                            <Custom:DataGridTextColumn Header="Unità di misura" Binding="{Binding MeasureUnit}" Tag="MeasureUnit" IsReadOnly="True"/>
                             <Custom:DataGridTextColumn Header="Quantità" Binding="{Binding Number}" Tag="Number"/>
-                            <Custom:DataGridTextColumn Header="Prezzo unitario (€)" Binding="{Binding Price}" Tag="Price"/>
-                            <Custom:DataGridTextColumn Header="Prezzo totale (€)" Binding="{Binding TotalPrice}" Tag="Total Price"/>
+                            <Custom:DataGridTextColumn Header="Prezzo unitario (€)" Binding="{Binding Price}" Tag="Price" IsReadOnly="True"/>
+                            <Custom:DataGridTextColumn Header="Prezzo totale (€)" Binding="{Binding TotalPrice}" Tag="Total Price" IsReadOnly="True"/>
                         </Custom:DataGrid.Columns>
                     </Custom:DataGrid>
 

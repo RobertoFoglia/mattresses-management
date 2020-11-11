@@ -54,6 +54,8 @@ namespace mattresses_management_dektop_app.Views
             MattressesGrid.SelectedIndex = 0;
             MattressesGrid.SelectionChanged += MattressesGrid_SelectionChanged;
 
+            ProductsGrid.CellEditEnded += (sender, e) => UpdateAttributesRepeater();
+
             EnterInTheReadingMode();
         }
 
