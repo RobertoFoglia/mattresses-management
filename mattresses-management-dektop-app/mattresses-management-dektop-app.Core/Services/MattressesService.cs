@@ -75,8 +75,8 @@ namespace mattresses_management_dektop_app.Core.Services
                 {
                     if (attribute.Name.ToUpper().Contains("PRIMA"))
                     {
-                        array[2] = attribute;
                         attribute.Price = productsSum * attribute.Percentage / 100;
+                        array[2] = attribute;
                         return;
                     }
                     if (attribute.Name.ToUpper().Contains("MANODOPERA"))
@@ -133,10 +133,7 @@ namespace mattresses_management_dektop_app.Core.Services
         }
 
         public void CalculateTheAttributes(Mattress mattress) {
-            if (
-                mattress.Attributes.Count() != 0 && 
-                mattress.Attributes.Exists(attribute => attribute.IsCalculated)
-                ) {
+            if (mattress.Attributes.Count() != 0) {
                 mattress.Attributes.RemoveAll(attribute => attribute.IsCalculated);
             }
 
