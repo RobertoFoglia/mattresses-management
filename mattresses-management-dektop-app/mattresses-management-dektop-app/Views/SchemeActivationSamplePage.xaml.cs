@@ -12,6 +12,7 @@ using mattresses_management_dektop_app.Core.Repositories.Api;
 using mattresses_management_dektop_app.Core.Services.Api;
 using mattresses_management_dektop_app.ViewModels;
 using Microsoft.Practices.Unity;
+using Windows.System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Attribute = mattresses_management_dektop_app.Core.Models.entities.Attribute;
@@ -221,6 +222,14 @@ namespace mattresses_management_dektop_app.Views
         {
             NameTextBoxForSearching.Text = DescriptionTextBoxForSearching.Text = "";
             SearchByALikeOfNameAndDecription();
+        }
+
+        private void Searching_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)
+            {
+                SearchByALikeOfNameAndDecription();
+            }
         }
     }
 }
