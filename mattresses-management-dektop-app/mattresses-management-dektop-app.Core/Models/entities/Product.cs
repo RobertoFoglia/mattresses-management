@@ -23,7 +23,7 @@ namespace mattresses_management_dektop_app.Core.Models.entities
         public String MeasureUnit { get; set; }
 
         [Ignore]
-        public int Number { get; set; }
+        public double Number { get; set; }
         [Ignore]
         public Double TotalPrice { 
             get { return Price * Number; } 

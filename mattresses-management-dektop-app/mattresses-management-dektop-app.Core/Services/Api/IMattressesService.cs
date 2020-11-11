@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Attribute = mattresses_management_dektop_app.Core.Models.entities.Attribute;
 
 namespace mattresses_management_dektop_app.Core.Services.Api
 {
@@ -12,5 +13,7 @@ namespace mattresses_management_dektop_app.Core.Services.Api
         Mattress GetAttributes(Mattress mattress);
 
         Mattress GetDefaultAttributes(Mattress mattress);
+
+        void CalculateTheAttributes(Mattress mattress);
     }
 }

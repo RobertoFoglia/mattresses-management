@@ -104,14 +104,16 @@ namespace mattresses_management_dektop_app.Core.Services
                 new Attribute()
                 {
                     Name = "Costo materasso",
-                    Price = productsSum + array.ToList().Sum<Attribute>(attribute => attribute.Price)
+                    Price = productsSum + array.ToList().Sum<Attribute>(attribute => attribute.Price),
+                    IsCalculated = true
                 }
             );
             tmp.Insert(1,
                 new Attribute()
                 {
                     Name = "Prezzo di vendita",
-                    Price = mattress.Price
+                    Price = mattress.Price,
+                    IsCalculated = true
                 }
             );
             tmp.Insert(2, assicurazione);
@@ -122,11 +124,23 @@ namespace mattresses_management_dektop_app.Core.Services
                 new Attribute()
                 {
                     Name = "RICAVO",
-                    Price = mattress.Price - attributesForTheGain
+                    Price = mattress.Price - attributesForTheGain,
+                    IsCalculated = true
                 }
                 );
 
             return tmp;
+        }
+
+        public void CalculateTheAttributes(Mattress mattress) {
+            if (
+                mattress.Attributes.Count() != 0 && 
+                mattress.Attributes.Exists(attribute => attribute.IsCalculated)
+                ) {
+                mattress.Attributes.RemoveAll(attribute => attribute.IsCalculated);
+            }
+
+            mattress.Attributes = CalculateAndOrderTheAttributes(mattress);
         }
 
         public Mattress GetProducts(Mattress mattress)

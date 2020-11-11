@@ -61,14 +61,8 @@
                           Header="Dettagli"
                           Style="{StaticResource BladeStyle}"
                           TitleBarVisibility="Collapsed" BorderBrush="{x:Null}" BorderThickness="0,0,0,0">
-                <StackPanel Margin="10">
+                <StackPanel Margin="10" VerticalAlignment="Stretch">
                     <TextBox Name="NameTextBox" Header="Nome" MinWidth="200" Margin="0,0,0,10" />
-
-                    <StackPanel Orientation="Horizontal" x:Name="ProductsButtons">
-                        <ToggleButton  Margin="10,10,0,10" Content="Scegli prodotti" Click="ToggleButton_Click"  IsChecked="{Binding IsOpen, Mode=TwoWay, ElementName=SecondBlade}" />
-                        <Button x:Name="ProductDeletingButton" Content="Elimina prodotto" Margin="10,10,0,10"  Click="ProductDeleteButton_Click"/>
-                    </StackPanel>
-
 
                     <Custom:DataGrid x:Name="ProductsGrid"  Grid.Column="0" Grid.Row="0"
                          VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
@@ -86,6 +80,10 @@
                         </Custom:DataGrid.Columns>
                     </Custom:DataGrid>
 
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" x:Name="ProductsButtons">
+                        <ToggleButton  Margin="10,10,0,10" Content="Scegli prodotti" Click="ToggleButton_Click"  IsChecked="{Binding IsOpen, Mode=TwoWay, ElementName=SecondBlade}" />
+                        <Button x:Name="ProductDeletingButton" Content="Elimina prodotto" Margin="10,10,0,10"  Click="ProductDeleteButton_Click"/>
+                    </StackPanel>
 
                     <controls:ItemsRepeater x:Name="AttributesRepeater">
                         <DataTemplate>
@@ -109,11 +107,11 @@
                 </StackPanel>
             </Custom:BladeItem>
 
-            <Custom:BladeItem x:Name="SecondBlade"
+            <Custom:BladeItem x:Name="SecondBlade" 
                           Header="Scegli i prodotti da inserire"
                           IsOpen="False"
                           Style="{StaticResource BladeStyle}">
-                <StackPanel Margin="10">
+                <StackPanel Margin="10" VerticalAlignment="Stretch">
                     <Grid MaxHeight="700">
                         <Grid.RowDefinitions>
                             <RowDefinition />

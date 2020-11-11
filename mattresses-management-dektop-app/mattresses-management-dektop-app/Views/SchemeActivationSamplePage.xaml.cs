@@ -33,6 +33,7 @@ namespace mattresses_management_dektop_app.Views
 
         private MattressFactory mattressFactory;
         private Mattress newMattress;
+        private List<Attribute> defaultAttributes;
 
         private SchemeActivationSampleViewModel ViewModel
         {
@@ -63,19 +64,26 @@ namespace mattresses_management_dektop_app.Views
 
         private void SetDetailsOfTheSelectedMattress()
         {
+            if (MattressesGrid.SelectedItem == null)
+            {
+                NameTextBox.Text = "";
+                ProductsGrid.ItemsSource = null;
+                AttributesRepeater.ItemsSource = null;
+                return;
+            }
             NameTextBox.Text = (MattressesGrid.SelectedItem as Mattress).Name;
             SetProductsOnTheSelectedMattress();
-            SetAttributesOnTheSelectedMattress();
+            SetAttributesOnTheSelectedMattress(MattressesGrid.SelectedItem as Mattress);
         }
 
-        private void SetAttributesOnTheSelectedMattress()
+        private void SetAttributesOnTheSelectedMattress(Mattress mattress)
         {
-            if ((MattressesGrid.SelectedItem as Mattress).Attributes == null)
+            if (mattress.Attributes == null)
             {
-                MattressesService.GetAttributes(MattressesGrid.SelectedItem as Mattress);
+                MattressesService.GetAttributes(mattress);
             }
             AttributesRepeater.ItemsSource = new ObservableCollection<Attribute>(
-                (MattressesGrid.SelectedItem as Mattress).Attributes);
+                mattress.Attributes);
         }
 
         private void SetProductsOnTheSelectedMattress()
@@ -141,7 +149,8 @@ namespace mattresses_management_dektop_app.Views
         private void ResetTheFormFields()
         {
             ProductsGrid.ItemsSource = null;
-            var newMattress = mattressFactory.GetNewMattressInstances();
+            newMattress = mattressFactory.GetNewMattressInstances();
+            defaultAttributes = newMattress.Attributes;
             ProductsGrid.ItemsSource = new ObservableCollection<Product>(new List<Product>());
             AttributesRepeater.ItemsSource = new ObservableCollection<Attribute>(newMattress.Attributes);
             NameTextBox.Text = "";
@@ -159,14 +168,27 @@ namespace mattresses_management_dektop_app.Views
             var iterator = ProductsGridForAdding.SelectedItems.GetEnumerator();
             while (iterator.MoveNext())
             {
-                (ProductsGrid.ItemsSource as ObservableCollection<Product>).Add(iterator.Current as Product);
+                var product = (iterator.Current as Product);
+                product.Number = 1;
+                (ProductsGrid.ItemsSource as ObservableCollection<Product>).Add(product);
             }
+            newMattress.Products = (ProductsGrid.ItemsSource as ObservableCollection<Product>).ToList();
+            UpdateAttributesRepeater();
+        }
+
+        private void UpdateAttributesRepeater()
+        {
+            MattressesService.CalculateTheAttributes(newMattress);
+            AttributesRepeater.ItemsSource = new ObservableCollection<Attribute>(newMattress.Attributes);
             SearchByALikeOfNameAndDecription();
         }
 
         private void ProductDeleteButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-
+            var productToDelete = ProductsGrid.SelectedIndex;
+            newMattress.Products.RemoveAt(productToDelete);
+            (ProductsGrid.ItemsSource as ObservableCollection<Product>).RemoveAt(productToDelete);
+            UpdateAttributesRepeater();
         }
 
         private void ProductSearchingButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -183,7 +205,8 @@ namespace mattresses_management_dektop_app.Views
             while (iterator.MoveNext())
             {
                 var searchedItems = searchedProducts.Where(product => product.Id == (iterator.Current as Product).Id);
-                if (searchedItems.Count() != 0) {
+                if (searchedItems.Count() != 0)
+                {
                     searchedProducts.Remove(searchedItems.First());
                 }
             }
