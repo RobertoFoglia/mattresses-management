@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mattresses-management-dekto
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mattresses-management-dektop-app.Core", "mattresses-management-dektop-app.Core\mattresses-management-dektop-app.Core.csproj", "{2CBD148E-4E9B-4C56-B581-DC55A608C657}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mattresses-management-dektop-app.CoreTests", "mattresses-management-dektop-app.CoreTests\mattresses-management-dektop-app.CoreTests.csproj", "{9D491501-EBCA-4086-B86B-0745C9F4CB9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,26 @@ Global
 		{2CBD148E-4E9B-4C56-B581-DC55A608C657}.Release|x64.Build.0 = Release|Any CPU
 		{2CBD148E-4E9B-4C56-B581-DC55A608C657}.Release|x86.ActiveCfg = Release|Any CPU
 		{2CBD148E-4E9B-4C56-B581-DC55A608C657}.Release|x86.Build.0 = Release|Any CPU
+		{9D491501-EBCA-4086-B86B-0745C9F4CB9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D491501-EBCA-4086-B86B-0745C9F4CB9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D491501-EBCA-4086-B86B-0745C9F4CB9D}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{9D491501-EBCA-4086-B86B-0745C9F4CB9D}.Debug|ARM.Build.0 = Debug|Any CPU
+		{9D491501-EBCA-4086-B86B-0745C9F4CB9D}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{9D491501-EBCA-4086-B86B-0745C9F4CB9D}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{9D491501-EBCA-4086-B86B-0745C9F4CB9D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9D491501-EBCA-4086-B86B-0745C9F4CB9D}.Debug|x64.Build.0 = Debug|Any CPU
+		{9D491501-EBCA-4086-B86B-0745C9F4CB9D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9D491501-EBCA-4086-B86B-0745C9F4CB9D}.Debug|x86.Build.0 = Debug|Any CPU
+		{9D491501-EBCA-4086-B86B-0745C9F4CB9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D491501-EBCA-4086-B86B-0745C9F4CB9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D491501-EBCA-4086-B86B-0745C9F4CB9D}.Release|ARM.ActiveCfg = Release|Any CPU
+		{9D491501-EBCA-4086-B86B-0745C9F4CB9D}.Release|ARM.Build.0 = Release|Any CPU
+		{9D491501-EBCA-4086-B86B-0745C9F4CB9D}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{9D491501-EBCA-4086-B86B-0745C9F4CB9D}.Release|ARM64.Build.0 = Release|Any CPU
+		{9D491501-EBCA-4086-B86B-0745C9F4CB9D}.Release|x64.ActiveCfg = Release|Any CPU
+		{9D491501-EBCA-4086-B86B-0745C9F4CB9D}.Release|x64.Build.0 = Release|Any CPU
+		{9D491501-EBCA-4086-B86B-0745C9F4CB9D}.Release|x86.ActiveCfg = Release|Any CPU
+		{9D491501-EBCA-4086-B86B-0745C9F4CB9D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
