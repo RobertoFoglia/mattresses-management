@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using mattresses_management_dektop_app.Core.Utils;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,10 +19,19 @@ namespace mattresses_management_dektop_app.Core.Models.entities
         public string Name { get; set; }
 
         public Double Price { get; set; }
+        public string PriceInEuro {
+            get { return PriceUtils.FormatPrice(this.Price); } 
+        }
         public Double Percentage { get; set; }
         public Boolean Default { get; set; }
 
         [Ignore]
         public Boolean IsCalculated { get; set; }
+        private bool _isReadOnly = true;
+        [Ignore]
+        public bool IsReadOnly {
+            get { return _isReadOnly; }
+            set { this._isReadOnly = value; } 
+        }
     }
 }

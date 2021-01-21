@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Reflection.Metadata.Ecma335;
@@ -10,9 +11,11 @@ using mattresses_management_dektop_app.Core.Factories;
 using mattresses_management_dektop_app.Core.Models.entities;
 using mattresses_management_dektop_app.Core.Repositories.Api;
 using mattresses_management_dektop_app.Core.Services.Api;
+using mattresses_management_dektop_app.Core.Utils;
 using mattresses_management_dektop_app.ViewModels;
 using Microsoft.Practices.Unity;
 using Windows.System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Attribute = mattresses_management_dektop_app.Core.Models.entities.Attribute;
@@ -126,6 +129,8 @@ namespace mattresses_management_dektop_app.Views
         private async void TheConfirmClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             SecondBlade.IsOpen = false;
+
+            MattressesService.Insert(newMattress);
         }
 
         private void TheCancelClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -230,6 +235,14 @@ namespace mattresses_management_dektop_app.Views
             {
                 SearchByALikeOfNameAndDecription();
             }
+        }
+
+        private void TextBox_LostFocus(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            newMattress.Attributes.Find(MattressesService.GetPredicateWihtPrezzoDiVendita())
+                .Price = PriceUtils.ParsePrice((sender as TextBox).Text);
+
+            this.UpdateAttributesRepeater();
         }
     }
 }

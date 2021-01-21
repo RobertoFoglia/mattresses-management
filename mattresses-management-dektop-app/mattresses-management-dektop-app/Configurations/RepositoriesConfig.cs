@@ -27,12 +27,14 @@ namespace mattresses_management_dektop_app.Configurations
 
         private void Init() {
             this.container.RegisterInstance<SQLiteConfig>(_sQLiteConfig);
+            this.container.RegisterInstance<SQLiteConnection>(_sqlLiteConnection);
 
             this.container.RegisterInstance<IAttributesRepository>(new AttributesSQLiteRepository(this._sqlLiteConnection));
-            this.container.RegisterInstance<IMattressAttributesRepository>(new MattressesAttributesSQLiteRepository(this._sqlLiteConnection));
-            this.container.RegisterInstance<IMattressesRepository>(new MattressesSQLiteRepository(this._sqlLiteConnection));
-            this.container.RegisterInstance<IMattressProductsRepository>(new MattressProductsSQLiteRepository(this._sqlLiteConnection));
             this.container.RegisterInstance<IProductsRepository>(new ProductsSQLiteRepository(this._sqlLiteConnection));
+            this.container.RegisterInstance<IMattressAttributesRepository>(new MattressesAttributesSQLiteRepository(this._sqlLiteConnection));
+            this.container.RegisterInstance<IMattressProductsRepository>(new MattressProductsSQLiteRepository(this._sqlLiteConnection));
+     
+            this.container.RegisterType<IMattressesRepository, MattressesSQLiteRepository>(new ContainerControlledLifetimeManager());
         }
     }
 }

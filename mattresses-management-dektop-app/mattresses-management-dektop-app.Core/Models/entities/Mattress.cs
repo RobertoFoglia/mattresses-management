@@ -5,9 +5,12 @@ using System.Text;
 
 namespace mattresses_management_dektop_app.Core.Models.entities
 {
-    [Table("Mattresses")]
+    [Table(TableName)]
     public class Mattress
     {
+        public const string TableName = "Mattresses";
+        public const string NameOfName = "Name";
+
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         [NotNull]
@@ -18,5 +21,9 @@ namespace mattresses_management_dektop_app.Core.Models.entities
         [Ignore]
         public List<Attribute> Attributes { get; set; }
         public Double Price { get; set; }
+        [Ignore]
+        public String FormattedPrice { 
+            get { return String.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:C2}", Price); } 
+        }
     }
 }

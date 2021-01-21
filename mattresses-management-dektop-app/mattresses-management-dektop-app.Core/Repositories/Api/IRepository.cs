@@ -11,6 +11,8 @@ namespace mattresses_management_dektop_app.Core.Repositories.Api
 
         int Insert(E item);
 
+        int InsertAll(List<E> items);
+
         List<E> FindAll();
 
         int Update(E item);

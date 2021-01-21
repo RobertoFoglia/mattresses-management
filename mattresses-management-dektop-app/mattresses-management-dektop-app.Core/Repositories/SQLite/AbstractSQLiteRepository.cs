@@ -52,5 +52,10 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
         {
             return this.connectionPool.Table<E>().Where(predExpr).ToList();
         }
+
+        public int InsertAll(List<E> items)
+        {
+            return this.connectionPool.InsertAll(items);
+        }
     }
 }

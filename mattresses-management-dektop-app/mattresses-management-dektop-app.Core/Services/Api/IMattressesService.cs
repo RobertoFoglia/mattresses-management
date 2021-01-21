@@ -15,5 +15,7 @@ namespace mattresses_management_dektop_app.Core.Services.Api
         Mattress GetDefaultAttributes(Mattress mattress);
 
         void CalculateTheAttributes(Mattress mattress);
+
+        Predicate<Attribute> GetPredicateWihtPrezzoDiVendita();
     }
 }

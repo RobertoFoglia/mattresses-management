@@ -23,11 +23,11 @@ namespace mattresses_management_dektop_app.Configurations
 
         private void Init() {
             this.container.RegisterType<IProductsService, ProductsService>(new ContainerControlledLifetimeManager());
-            this.container.RegisterType<IMattressesService, MattressesService>(new ContainerControlledLifetimeManager());
             this.container.RegisterType<IAttributesService, AttributesService>(new ContainerControlledLifetimeManager());
 
-
             this.container.RegisterType<MattressFactory, MattressFactory>(new ContainerControlledLifetimeManager());
+
+            this.container.RegisterType<IMattressesService, MattressesService>(new ContainerControlledLifetimeManager());
         }
     }
 }

@@ -55,5 +55,10 @@ namespace mattresses_management_dektop_app.Core.Services
         {
             return this.CrudRepository.Where(predExpr);
         }
+
+        public int InsertAll(List<E> items)
+        {
+            return this.CrudRepository.InsertAll(items);
+        }
     }
 }

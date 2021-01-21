@@ -1,8 +1,10 @@
 ﻿using mattresses_management_dektop_app.Core.Models.entities;
 using mattresses_management_dektop_app.Core.Repositories.Api;
 using mattresses_management_dektop_app.Core.Services.Api;
+using mattresses_management_dektop_app.Core.Utils;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -113,7 +115,8 @@ namespace mattresses_management_dektop_app.Core.Services
                 {
                     Name = "Prezzo di vendita",
                     Price = mattress.Price,
-                    IsCalculated = true
+                    IsCalculated = true,
+                    IsReadOnly = false
                 }
             );
             tmp.Insert(2, assicurazione);
@@ -133,11 +136,26 @@ namespace mattresses_management_dektop_app.Core.Services
         }
 
         public void CalculateTheAttributes(Mattress mattress) {
+
+            Double priceToSave = 0;
             if (mattress.Attributes.Count() != 0) {
+                List<Attribute> cancelledAttributes = mattress.Attributes.FindAll(attribute => attribute.IsCalculated);
+                priceToSave = (from attribute in cancelledAttributes
+                              where attribute.Name.Equals("Prezzo di vendita")
+                              select attribute).First().Price;
                 mattress.Attributes.RemoveAll(attribute => attribute.IsCalculated);
             }
 
             mattress.Attributes = CalculateAndOrderTheAttributes(mattress);
+            var attributeToChange = mattress.Attributes.Find(attribute => attribute.Name.Equals("Prezzo di vendita"));
+            attributeToChange.Price = priceToSave;
+
+            attributeToChange = mattress.Attributes.Find(attribute => attribute.Name.Equals("RICAVO"));
+            attributeToChange.Price += priceToSave;
+        }
+
+        public Predicate<Attribute> GetPredicateWihtPrezzoDiVendita() {
+            return attribute => attribute.Name.Equals("Prezzo di vendita");
         }
 
         public Mattress GetProducts(Mattress mattress)
@@ -182,6 +200,16 @@ namespace mattresses_management_dektop_app.Core.Services
             mattress.Attributes = attributesService.GetDefaultAttributes();
             mattress.Attributes = CalculateAndOrderTheAttributes(mattress);
             return mattress;
+        }
+    
+        public new int Insert(Mattress mattress) {
+            // TODO validation
+            // - name is unique
+            // - quantity is number
+            // - price is a number (attributes)
+
+            // throw the UserOperationException
+            return 0;
         }
     }
 }
