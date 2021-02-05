@@ -18,14 +18,14 @@ namespace mattresses_management_dektop_app.Core.Models.entities
         [NotNull] [Unique]
         public string Name { get; set; }
         public String Description { get; set; }
-        public Double Price { get; set; }
+        public decimal Price { get; set; }
         [NotNull]
         public String MeasureUnit { get; set; }
 
         [Ignore]
-        public double Number { get; set; }
+        public decimal Number { get; set; }
         [Ignore]
-        public Double TotalPrice { 
+        public decimal TotalPrice { 
             get { return Price * Number; } 
         }
     }

@@ -21,8 +21,8 @@ namespace mattresses_management_dektop_app.Core.Models.entities
         [NotNull]
         public int IdAttribute { get; set; }
 
-        public Double Price { get; set; }
-        public Double Percentage { get; set; }
+        public decimal Price { get; set; }
+        public decimal Percentage { get; set; }
 
         [Ignore]
         public Mattress Mattress { get; set; }

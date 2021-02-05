@@ -68,9 +68,9 @@ namespace mattresses_management_dektop_app.Core.Services
 
             Attribute assicurazione = null;
 
-            double productsSum = 0;
+            decimal productsSum = 0;
             productsSum += mattress.Products.Sum<Product>(product => product.TotalPrice);
-            var attributesForTheGain = 0.0;
+            var attributesForTheGain = 0.0m;
 
             mattress.Attributes.ForEach(
                 attribute =>
@@ -137,7 +137,7 @@ namespace mattresses_management_dektop_app.Core.Services
 
         public void CalculateTheAttributes(Mattress mattress) {
 
-            Double priceToSave = 0;
+            decimal priceToSave = 0;
             if (mattress.Attributes.Count() != 0) {
                 List<Attribute> cancelledAttributes = mattress.Attributes.FindAll(attribute => attribute.IsCalculated);
                 priceToSave = (from attribute in cancelledAttributes

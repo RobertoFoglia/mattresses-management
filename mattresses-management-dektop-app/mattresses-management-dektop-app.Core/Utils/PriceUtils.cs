@@ -9,13 +9,13 @@ namespace mattresses_management_dektop_app.Core.Utils
     {
         private static CultureInfo culture = CultureInfo.CreateSpecificCulture("it-IT");
 
-        public static string FormatPrice(double price)
+        public static string FormatPrice(decimal price)
         {
             return price.ToString("C", culture);
         }
 
-        public static Double ParsePrice(string price) {
-            if (!Double.TryParse(price.Replace("€", "").Replace(" ", ""), out double convertedPrice))
+        public static decimal ParsePrice(string price) {
+            if (!decimal.TryParse(price.Replace("€", "").Replace(" ", ""), out decimal convertedPrice))
                 convertedPrice = 0;
             return convertedPrice;
         }

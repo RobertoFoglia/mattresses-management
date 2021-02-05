@@ -19,8 +19,8 @@ namespace mattresses_management_dektop_app.Core.Models.entities
         public int IdMattress { get; set; }
         [NotNull]
         public int IdProduct { get; set; }
-        public double Number { get; set; }
-        public Double Unitary_Price { get; set; }
+        public decimal Number { get; set; }
+        public decimal Unitary_Price { get; set; }
 
         [Ignore]
         public Mattress Mattress { get; set; }

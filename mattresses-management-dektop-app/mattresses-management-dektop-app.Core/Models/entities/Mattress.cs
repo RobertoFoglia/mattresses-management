@@ -20,7 +20,7 @@ namespace mattresses_management_dektop_app.Core.Models.entities
         public List<Product> Products { get; set; }
         [Ignore]
         public List<Attribute> Attributes { get; set; }
-        public Double Price { get; set; }
+        public decimal Price { get; set; }
         [Ignore]
         public String FormattedPrice { 
             get { return String.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:C2}", Price); } 

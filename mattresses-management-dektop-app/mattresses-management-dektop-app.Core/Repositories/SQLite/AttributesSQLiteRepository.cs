@@ -18,7 +18,19 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
             var result = base.InitTable();
             if (result.Equals(CreateTableResult.Created))
             {
-                var defaultAttributes = new List<Attribute> {
+                var defaultAttributes = getDefaultAttributes();
+
+                if (this.connectionPool.InsertAll(defaultAttributes, true) == 0)
+                {
+                    throw new InvalidInitializationException("The attributes table was not initialized.");
+                }
+            }
+            return result;
+        }
+
+        public static List<Attribute> getDefaultAttributes()
+        {
+            return new List<Attribute> {
                     new Attribute {
                         Name = "Manodopera",
                         Price = 8,
@@ -50,13 +62,6 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
                         Default = true
                     },
                 };
-
-                if (this.connectionPool.InsertAll(defaultAttributes, true) == 0)
-                {
-                    throw new InvalidInitializationException("The attributes table was not initialized.");
-                }
-            }
-            return result;
         }
     }
 }

@@ -18,11 +18,11 @@ namespace mattresses_management_dektop_app.Core.Models.entities
         [Unique]
         public string Name { get; set; }
 
-        public Double Price { get; set; }
+        public decimal Price { get; set; }
         public string PriceInEuro {
             get { return PriceUtils.FormatPrice(this.Price); } 
         }
-        public Double Percentage { get; set; }
+        public decimal Percentage { get; set; }
         public Boolean Default { get; set; }
 
         [Ignore]

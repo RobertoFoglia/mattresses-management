@@ -96,13 +96,13 @@ namespace mattresses_management_dektop_app.Views
             MeasureUnitTextBox.Text = "";
         }
 
-        private Boolean AreValidTheFields(out Double price)
+        private Boolean AreValidTheFields(out decimal price)
         {
             NumberStyles style;
             CultureInfo culture;
             style = NumberStyles.Number | NumberStyles.AllowDecimalPoint | NumberStyles.AllowCurrencySymbol;
             culture = CultureInfo.CreateSpecificCulture("it-IT");
-            if (!Double.TryParse(UnitaryPriceTextBox.Text, style, culture, out price))
+            if (!decimal.TryParse(UnitaryPriceTextBox.Text, style, culture, out price))
             {
                 ContentDialog dataErrorsDialog = new ContentDialog
                 {
@@ -136,7 +136,7 @@ namespace mattresses_management_dektop_app.Views
 
         private async void TheConfirmClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            Double price;
+            decimal price;
             if (AreValidTheFields(out price))
             {
                 var productToSave = new Product
