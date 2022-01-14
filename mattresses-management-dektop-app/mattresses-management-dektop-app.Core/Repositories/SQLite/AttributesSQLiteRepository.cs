@@ -32,30 +32,35 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
         {
             return new List<Attribute> {
                     new Attribute {
+                        Id = 1,
                         Name = "Manodopera",
                         Price = 8,
                         Percentage = -1,
                         Default = true
                     },
                     new Attribute {
+                        Id = 2,
                         Name = "Gestione",
                         Price = 3,
                         Percentage = -1,
                         Default = true
                     },
                     new Attribute {
+                        Id = 3,
                         Name = "2% su materia prima",
                         Price = -1,
                         Percentage = 2,
                         Default = true
                     },
                     new Attribute {
+                        Id = 4,
                         Name = "Assicurazione 2%",
                         Price = -1,
                         Percentage = 2,
                         Default = true
                     },
                     new Attribute {
+                        Id = 5,
                         Name = "Trasporto",
                         Price = 7,
                         Percentage = -1,

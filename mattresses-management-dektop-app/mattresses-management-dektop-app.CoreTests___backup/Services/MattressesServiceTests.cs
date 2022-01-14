@@ -1,10 +1,11 @@
-﻿using mattresses_management_dektop_app.Core.Services;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using mattresses_management_dektop_app.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using mattresses_management_dektop_app.Core.Models.entities;
 using mattresses_management_dektop_app.Core.Repositories.SQLite;
 using NUnit.Framework;
+using mattresses_management_dektop_app.Core.Models.entities;
 
 namespace mattresses_management_dektop_app.Core.Services.Tests
 {
@@ -17,10 +18,8 @@ namespace mattresses_management_dektop_app.Core.Services.Tests
         [SetUp]
         public void setup()
         {
-            mattress = new Mattress
-            {
-                Attributes = AttributesSQLiteRepository.getDefaultAttributes()
-            };
+            mattress = new Mattress();
+            mattress.Attributes = AttributesSQLiteRepository.getDefaultAttributes();
             mattress.Attributes.Add(
                 new Models.entities.Attribute
                 {
@@ -31,10 +30,8 @@ namespace mattresses_management_dektop_app.Core.Services.Tests
                     IsCalculated = true
                 }
                 );
-            mattress.Products = new List<Product>
-            {
-                new Product()
-            };
+            mattress.Products = new List<Product>();
+            mattress.Products.Add(new Product());
         }
 
         [Test]
@@ -44,23 +41,23 @@ namespace mattresses_management_dektop_app.Core.Services.Tests
                 new Product()
                 {
                     Number = 2,
-                    Price = 10.4m
+                    Price = 10.4
                 });
             mattress.Products.Add(
             new Product()
             {
                 Number = 4,
-                Price = 5.4m
+                Price = 5.4
             });
             service.CalculateTheAttributes(mattress);
 
-            Assert.IsTrue(checkFields(mattress, 0.848m));
+            Microsoft.VisualStudio.TestTools.
+                UnitTesting.Assert.IsTrue(checkFields(mattress, 0.848));
         }
 
-        public Boolean checkFields(Mattress mattress, decimal materiaPrima)
-        {
+        public Boolean checkFields(Mattress mattress, Double materiaPrima) {
 
-            var mattMateriaPrima = mattress.Attributes.Find(attribute => attribute.Id == 3).Price;
+            var mattMateriaPrima = mattress.Attributes.Find(attribute => attribute.Name.Equals("2% su materia prima")).Price;
 
             if (mattMateriaPrima != materiaPrima)
                 return false;
