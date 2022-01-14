@@ -1,13 +1,9 @@
 ﻿using mattresses_management_dektop_app.Core.Models.entities;
 using mattresses_management_dektop_app.Core.Repositories.Api;
 using mattresses_management_dektop_app.Core.Services.Api;
-using mattresses_management_dektop_app.Core.Utils;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using Attribute = mattresses_management_dektop_app.Core.Models.entities.Attribute;
 
 namespace mattresses_management_dektop_app.Core.Services

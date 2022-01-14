@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Reflection.Metadata.Ecma335;
-using mattresses_management_dektop_app.Constants;
+﻿using mattresses_management_dektop_app.Constants;
 using mattresses_management_dektop_app.Context;
 using mattresses_management_dektop_app.Core.Factories;
 using mattresses_management_dektop_app.Core.Models.entities;
-using mattresses_management_dektop_app.Core.Repositories.Api;
 using mattresses_management_dektop_app.Core.Services.Api;
 using mattresses_management_dektop_app.Core.Utils;
 using mattresses_management_dektop_app.ViewModels;
 using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Windows.System;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 using Attribute = mattresses_management_dektop_app.Core.Models.entities.Attribute;
 
 namespace mattresses_management_dektop_app.Views
