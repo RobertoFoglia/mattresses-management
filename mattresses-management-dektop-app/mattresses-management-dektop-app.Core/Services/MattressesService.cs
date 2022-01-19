@@ -137,16 +137,16 @@ namespace mattresses_management_dektop_app.Core.Services
             if (mattress.Attributes.Count() != 0) {
                 List<Attribute> cancelledAttributes = mattress.Attributes.FindAll(attribute => attribute.IsCalculated);
                 priceToSave = (from attribute in cancelledAttributes
-                              where attribute.Name.Equals("Prezzo di vendita")
+                              where "Prezzo di vendita".Equals(attribute.Name)
                               select attribute).First().Price;
                 mattress.Attributes.RemoveAll(attribute => attribute.IsCalculated);
             }
 
             mattress.Attributes = CalculateAndOrderTheAttributes(mattress);
-            var attributeToChange = mattress.Attributes.Find(attribute => attribute.Name.Equals("Prezzo di vendita"));
+            var attributeToChange = mattress.Attributes.Find(attribute => "Prezzo di vendita".Equals(attribute.Name));
             attributeToChange.Price = priceToSave;
 
-            attributeToChange = mattress.Attributes.Find(attribute => attribute.Name.Equals("RICAVO"));
+            attributeToChange = mattress.Attributes.Find(attribute => "Prezzo di vendita".Equals(attribute.Name));
             attributeToChange.Price += priceToSave;
         }
 

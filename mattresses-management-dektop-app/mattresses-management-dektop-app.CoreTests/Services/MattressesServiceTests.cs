@@ -25,7 +25,7 @@ namespace mattresses_management_dektop_app.Core.Services.Tests
         private Fixture fixtures;
 
         [OneTimeSetUp]
-        public void init()
+        public void Init()
         {
             mattressesRepositoryMock = new Mock<IMattressesRepository>();
             mattressAttributesRepositoryMock = new Mock<IMattressAttributesRepository>();
@@ -69,18 +69,11 @@ namespace mattresses_management_dektop_app.Core.Services.Tests
             });
             service.CalculateTheAttributes(mattress);
 
-            Assert.IsTrue(checkFields(mattress, 0.848m));
-        }
+            // 2% on the primary material
+            Assert.AreEqual(mattress.Attributes.Find(attribute => attribute.Id == 3).Price, 0.848m);
+            // products total + 2% sulle materie prime + labour + assicuration
+            Assert.AreEqual(mattress.Attributes.Find(attribute => "Costo materasso".Equals(attribute.Name)).Price, 42.4m + 0.848m + 8m + 3m);
 
-        public Boolean checkFields(Mattress mattress, decimal materiaPrima)
-        {
-
-            var mattMateriaPrima = mattress.Attributes.Find(attribute => attribute.Id == 3).Price;
-
-            if (mattMateriaPrima != materiaPrima)
-                return false;
-
-            return true;
         }
     }
 }
