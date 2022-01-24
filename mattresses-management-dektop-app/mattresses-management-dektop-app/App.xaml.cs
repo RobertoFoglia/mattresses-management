@@ -130,6 +130,7 @@ namespace mattresses_management_dektop_app
         {
             // TODO WTS: Please log and handle the exception as appropriate to your scenario
             // For more info see https://docs.microsoft.com/uwp/api/windows.ui.xaml.application.unhandledexception
+            LOG.Error(e.Exception, "System error");
         }
 
         public void SetNavigationFrame(Frame frame)
