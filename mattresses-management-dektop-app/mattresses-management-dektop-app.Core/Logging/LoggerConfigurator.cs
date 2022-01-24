@@ -24,5 +24,7 @@ namespace mattresses_management_dektop_app.Core.Logging
         {
             // TODO rfoglia - set level
         }
+
+        public static CloseAndFlush() => Serilog.Log.Logger.
     }
 }

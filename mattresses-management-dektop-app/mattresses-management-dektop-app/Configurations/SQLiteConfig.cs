@@ -1,18 +1,17 @@
-﻿using SQLite;
+﻿using mattresses_management_dektop_app.Core.Logging;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace mattresses_management_dektop_app.Configurations
 {
     public class SQLiteConfig
     {
+        private static readonly Log LOG = LogFactory.CreateNewIstance(typeof(SQLiteConfig));
+
         public string DatabasePath { get; }
 
-        public SQLiteConfig() {
+        public SQLiteConfig()
+        {
             // Get an absolute path to the database file
             DatabasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "mattresses-management\\mattresses-management.db");
 
@@ -22,8 +21,12 @@ namespace mattresses_management_dektop_app.Configurations
                 Directory.CreateDirectory(fileInfo.Directory.FullName);
                 using (File.Create(DatabasePath))
                 {
-                    System.Diagnostics.Debug.WriteLine("file created with path" + fileInfo.Directory.FullName);
+                    LOG.Information("File created with path {DatabasePath}.", DatabasePath);
                 }
+            }
+            else
+            {
+                LOG.Information("DB file has as path {DatabasePath}.", DatabasePath);
             }
         }
     }

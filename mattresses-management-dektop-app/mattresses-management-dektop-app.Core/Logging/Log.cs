@@ -17,5 +17,7 @@ namespace mattresses_management_dektop_app.Core.Logging
         void Warning(string messageTemplate);
 
         void Warning(string messageTemplate, params object[] propertyValues);
+
+        void Error(Exception exception, string messageTemplate);
     }
 }

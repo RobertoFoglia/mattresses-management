@@ -32,5 +32,8 @@ namespace mattresses_management_dektop_app.Core.Logging
 
         public void Warning(string messageTemplate, params object[] propertyValues) =>
             Serilog.Log.Warning(MakeMessageTemplate(messageTemplate), propertyValues);
+
+        public void Error(Exception exception, string messageTemplate) =>
+            Serilog.Log.Error(exception, MakeMessageTemplate(messageTemplate));
     }
 }
