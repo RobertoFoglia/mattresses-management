@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
-
 using mattresses_management_dektop_app.Activation;
 using mattresses_management_dektop_app.Configurations;
+using mattresses_management_dektop_app.Core.Logging;
 using mattresses_management_dektop_app.Core.Models.entities;
 using mattresses_management_dektop_app.Core.Services.Api;
 using mattresses_management_dektop_app.Services;
@@ -15,18 +17,22 @@ using Prism.Mvvm;
 using Prism.Unity.Windows;
 using Prism.Windows.AppModel;
 using Prism.Windows.Navigation;
-
+using Serilog;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Resources;
+using Windows.Storage;
 using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Log = mattresses_management_dektop_app.Core.Logging.Log;
 
 namespace mattresses_management_dektop_app
 {
     [Windows.UI.Xaml.Data.Bindable]
     public sealed partial class App : PrismUnityApplication
     {
+
+        private static readonly Log LOG = LogFactory.CreateNewIstance(typeof(App));
 
         public static IUnityContainer IOCContainer { get { return App._container; } }
         private static IUnityContainer _container;
@@ -38,6 +44,7 @@ namespace mattresses_management_dektop_app
 
         protected override void ConfigureContainer()
         {
+            LoggerConfigurator.Initialization();
             // register a singleton using Container.RegisterType<IInterface, Type>(new ContainerControlledLifetimeManager());
             base.ConfigureContainer();
             App._container = Container;
@@ -47,8 +54,7 @@ namespace mattresses_management_dektop_app
 
             new RepositoriesConfig(Container);
             new ServiceConfig(Container);
-            System.Diagnostics.Debug.WriteLine("Dependency injections are configured");
-
+            LOG.Information("Dependency injections are configured");
         }
 
         protected override async Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
