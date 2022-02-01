@@ -21,7 +21,7 @@ namespace mattresses_management_dektop_app.Core.Services
             this.MattressProductsRepository = mattressProductsRepository;
         }
 
-        public Product findByUniqueFieldsInAList(Product searchParamenter, Collection<Product> products)
+        public Product FindByUniqueFieldsInAList(Product searchParamenter, Collection<Product> products)
         {
             var productSearch = from product in products
                                 where product.Name.Equals(searchParamenter.Name)

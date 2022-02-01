@@ -11,7 +11,7 @@ namespace mattresses_management_dektop_app.Core.Services
     {
         private readonly IRepository<E, K> CrudRepository;
 
-        public AbstractCRUDService(IRepository<E, K> crudRepository)
+        internal AbstractCRUDService(IRepository<E, K> crudRepository)
         {
             this.CrudRepository = crudRepository;
         }

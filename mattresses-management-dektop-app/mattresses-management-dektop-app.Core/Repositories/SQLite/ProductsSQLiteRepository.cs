@@ -20,7 +20,7 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
                     "SELECT * FROM " + Product.TableName +
                 " WHERE  " + Product.NameOfName + " LIKE ? AND " + Product.DescriptionName + " LIKE ?",
                     name, description
-                ); ;
+                );
         }
     }
 }

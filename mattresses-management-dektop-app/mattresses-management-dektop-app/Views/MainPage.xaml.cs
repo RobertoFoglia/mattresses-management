@@ -52,20 +52,12 @@ namespace mattresses_management_dektop_app.Views
 
         private void SetProductDetails()
         {
-            var product = (ProductsGrid.SelectedItem as Product);
-
-            if (product == null) return;
+            if (!(ProductsGrid.SelectedItem is Product product)) return;
 
             SelectedProduct = product;
-            if (product.Name != null)
-                NameTextBox.Text = product.Name;
-            else
-                NameTextBox.Text = String.Empty;
+            NameTextBox.Text = product.Name ?? String.Empty;
 
-            if (product.Description != null)
-                DescriptionTextBox.Text = product.Description;
-            else
-                DescriptionTextBox.Text = String.Empty;
+            DescriptionTextBox.Text = product.Description != null ? product.Description : String.Empty;
 
             UnitaryPriceTextBox.Text = product.Price.ToString();
 
@@ -119,7 +111,7 @@ namespace mattresses_management_dektop_app.Views
                                          ViewOperationModeTypes.ADDING.Equals(ViewMode))
                                          select product;
 
-            if (productsHasTheSameName.Count() != 0)
+            if (productsHasTheSameName.Any())
             {
                 ContentDialog dataErrorsDialog = new ContentDialog
                 {
@@ -136,12 +128,11 @@ namespace mattresses_management_dektop_app.Views
 
         private async void TheConfirmClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            decimal price;
-            if (AreValidTheFields(out price))
+            if (AreValidTheFields(out decimal price))
             {
                 var productToSave = new Product
                 {
-                    Id = SelectedProduct == null ? 0 : SelectedProduct.Id,
+                    Id = (SelectedProduct?.Id) ?? 0,
                     Name = NameTextBox.Text,
                     Description = DescriptionTextBox.Text,
                     Price = price,
@@ -173,7 +164,7 @@ namespace mattresses_management_dektop_app.Views
                         {
                             Products.Clear();
                             ProductsService.FindAll().ForEach(product => Products.Add(product));
-                            selectedIndex = Products.IndexOf(ProductsService.findByUniqueFieldsInAList(productToSave, Products));
+                            selectedIndex = Products.IndexOf(ProductsService.FindByUniqueFieldsInAList(productToSave, Products));
                         }
                         else
                         {
@@ -225,7 +216,7 @@ namespace mattresses_management_dektop_app.Views
             this.DisableTheFormFiels(true);
             ViewMode = ViewOperationModeTypes.READING;
 
-            if ((ProductsGrid.ItemsSource as ObservableCollection<Product>).Count == 0)
+            if ((ProductsGrid.ItemsSource as ObservableCollection<Product>)?.Count == 0)
             {
                 ResetTheFormFields();
                 DeletingButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;

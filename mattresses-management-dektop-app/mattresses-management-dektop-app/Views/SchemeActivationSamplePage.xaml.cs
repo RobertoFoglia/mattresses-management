@@ -70,7 +70,7 @@ namespace mattresses_management_dektop_app.Views
                 AttributesRepeater.ItemsSource = null;
                 return;
             }
-            NameTextBox.Text = (MattressesGrid.SelectedItem as Mattress).Name;
+            NameTextBox.Text = (MattressesGrid.SelectedItem as Mattress)?.Name;
             SetProductsOnTheSelectedMattress();
             SetAttributesOnTheSelectedMattress(MattressesGrid.SelectedItem as Mattress);
         }
@@ -87,9 +87,9 @@ namespace mattresses_management_dektop_app.Views
 
         private void SetProductsOnTheSelectedMattress()
         {
-            if ((MattressesGrid.SelectedItem as Mattress).Products == null)
+            if ((MattressesGrid.SelectedItem as Mattress)?.Products == null)
                 MattressesService.GetProducts(MattressesGrid.SelectedItem as Mattress);
-            ProductsGrid.ItemsSource = new ObservableCollection<Product>((MattressesGrid.SelectedItem as Mattress).Products);
+            ProductsGrid.ItemsSource = new ObservableCollection<Product>((MattressesGrid.SelectedItem as Mattress)?.Products);
         }
 
         private void EnterInTheReadingMode()
@@ -172,7 +172,7 @@ namespace mattresses_management_dektop_app.Views
             {
                 var product = (iterator.Current as Product);
                 product.Number = 1;
-                (ProductsGrid.ItemsSource as ObservableCollection<Product>).Add(product);
+                (ProductsGrid.ItemsSource as ObservableCollection<Product>)?.Add(product);
             }
             newMattress.Products = (ProductsGrid.ItemsSource as ObservableCollection<Product>).ToList();
             UpdateAttributesRepeater();

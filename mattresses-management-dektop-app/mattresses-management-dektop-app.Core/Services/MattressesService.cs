@@ -38,12 +38,11 @@ namespace mattresses_management_dektop_app.Core.Services
             mattress.Attributes = MattressAttributesRepository.GetTheAttributesOfTheMattresses(mattress);
 
             var dictionary = MattressAttributesRepository.FindByMattress(mattress)
-                .ToDictionary<MattressAttribute, int>(mattressAttribute => mattressAttribute.IdAttribute);
+                .ToDictionary(mattressAttribute => mattressAttribute.IdAttribute);
 
             mattress.Attributes.ForEach(attribute =>
             {
-                MattressAttribute mattressAttribute;
-                dictionary.TryGetValue(attribute.Id, out mattressAttribute);
+                MattressAttribute mattressAttribute = dictionary[attribute.Id];
 
                 if (mattressAttribute.Price >= 0)
                 {
@@ -184,8 +183,7 @@ namespace mattresses_management_dektop_app.Core.Services
             mattress.Products.ForEach(
                 product =>
                 {
-                    MattressProduct mattressProduct;
-                    dictionary.TryGetValue(product.Id, out mattressProduct);
+                    MattressProduct mattressProduct = dictionary[product.Id];
                     product.Number = mattressProduct.Number;
 
                     if (mattressProduct.Unitary_Price >= 0)
