@@ -38,7 +38,7 @@ namespace mattresses_management_dektop_app.Core.Services
         {
             mattress = fixtures.Create<Mattress>();
             mattress.Attributes = AttributesSQLiteRepository.getDefaultAttributes();
-            
+
             mattress.Attributes.Add(service.CraeteSellingPriceAttribute(0));
             mattress.Products = new List<Product>();
         }

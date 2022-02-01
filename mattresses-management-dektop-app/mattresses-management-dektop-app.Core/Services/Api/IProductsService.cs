@@ -1,8 +1,6 @@
 ﻿using mattresses_management_dektop_app.Core.Models.entities;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 
 namespace mattresses_management_dektop_app.Core.Services.Api
 {
@@ -11,6 +9,7 @@ namespace mattresses_management_dektop_app.Core.Services.Api
         Product findByUniqueFieldsInAList(Product searchParamenter, Collection<Product> products);
 
         bool BelongsToAMattress(Product entity);
+
         List<Product> FindByALikeWithNameAndDescription(string name, string description);
     }
 }

@@ -4,14 +4,15 @@ using mattresses_management_dektop_app.Core.Services.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace mattresses_management_dektop_app.Core.Services
 {
     public abstract class AbstractCRUDService<E, K> : ICRUDService<E, K> where E : new()
     {
         private readonly IRepository<E, K> CrudRepository;
-        public AbstractCRUDService(IRepository<E, K> crudRepository) {
+
+        public AbstractCRUDService(IRepository<E, K> crudRepository)
+        {
             this.CrudRepository = crudRepository;
         }
 
@@ -35,7 +36,7 @@ namespace mattresses_management_dektop_app.Core.Services
             return this.CrudRepository.Update(item);
         }
 
-        public int Delete(K key) 
+        public int Delete(K key)
         {
             var result = this.CrudRepository.Delete(key);
             if (result == 0)

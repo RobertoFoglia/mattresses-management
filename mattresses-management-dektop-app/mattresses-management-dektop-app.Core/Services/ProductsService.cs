@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace mattresses_management_dektop_app.Core.Services
 {
-    public class ProductsService: AbstractCRUDService<Product, int>, IProductsService
+    public class ProductsService : AbstractCRUDService<Product, int>, IProductsService
     {
         private readonly IProductsRepository ProductsRepository;
         private readonly IMattressProductsRepository MattressProductsRepository;
@@ -24,24 +24,27 @@ namespace mattresses_management_dektop_app.Core.Services
         public Product findByUniqueFieldsInAList(Product searchParamenter, Collection<Product> products)
         {
             var productSearch = from product in products
-                           where product.Name.Equals(searchParamenter.Name)
-                           select product;
+                                where product.Name.Equals(searchParamenter.Name)
+                                select product;
             if (productSearch.Count() > 1) throw new ArgumentException("In the products list, there are duplicates.");
             return productSearch.First();
         }
 
         public new int Delete(Product entity)
         {
-            if (entity == null) {
+            if (entity == null)
+            {
                 throw new System.ArgumentException("Devi passare un argomento diverso da null");
             }
-            if (this.BelongsToAMattress(entity)) {
+            if (this.BelongsToAMattress(entity))
+            {
                 throw new System.ArgumentException("Non puoi eliminare il prodotto perchè appartiene ad un materasso.");
             }
             return this.ProductsRepository.Delete(entity);
         }
 
-        public bool BelongsToAMattress(Product entity) {
+        public bool BelongsToAMattress(Product entity)
+        {
             return MattressProductsRepository.BelongsToAMattress(entity);
         }
 

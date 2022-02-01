@@ -3,16 +3,10 @@ using mattresses_management_dektop_app.Core.Repositories.Api;
 using mattresses_management_dektop_app.Core.Repositories.SQLite;
 using Microsoft.Practices.Unity;
 using SQLite;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace mattresses_management_dektop_app.Configurations
 {
-    class RepositoriesConfig
+    internal class RepositoriesConfig
     {
         private static readonly Log LOG = LogFactory.CreateNewIstance(typeof(RepositoriesConfig));
 
@@ -28,7 +22,8 @@ namespace mattresses_management_dektop_app.Configurations
             this.Init();
         }
 
-        private void Init() {
+        private void Init()
+        {
             this.container.RegisterInstance<SQLiteConfig>(_sQLiteConfig);
             this.container.RegisterInstance<SQLiteConnection>(_sqlLiteConnection);
 
@@ -36,7 +31,7 @@ namespace mattresses_management_dektop_app.Configurations
             this.container.RegisterInstance<IProductsRepository>(new ProductsSQLiteRepository(this._sqlLiteConnection));
             this.container.RegisterInstance<IMattressAttributesRepository>(new MattressesAttributesSQLiteRepository(this._sqlLiteConnection));
             this.container.RegisterInstance<IMattressProductsRepository>(new MattressProductsSQLiteRepository(this._sqlLiteConnection));
-     
+
             this.container.RegisterType<IMattressesRepository, MattressesSQLiteRepository>(new ContainerControlledLifetimeManager());
 
             LOG.Information("Repositories configuration is done.");

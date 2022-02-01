@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Input;
-
-using mattresses_management_dektop_app.Helpers;
+﻿using mattresses_management_dektop_app.Helpers;
 using mattresses_management_dektop_app.Views;
-
 using Prism.Commands;
 using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Input;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-
 using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace mattresses_management_dektop_app.ViewModels

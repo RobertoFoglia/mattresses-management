@@ -132,7 +132,8 @@ namespace mattresses_management_dektop_app.Core.Services
             return tmp;
         }
 
-        public Attribute CraeteSellingPriceAttribute(decimal price) {
+        public Attribute CraeteSellingPriceAttribute(decimal price)
+        {
             return new Attribute()
             {
                 Id = (int)CommonAttributesEnum.SELLING_PRICE,
@@ -150,7 +151,7 @@ namespace mattresses_management_dektop_app.Core.Services
             if (mattress.Attributes.Count != 0)
             {
                 List<Attribute> cancelledAttributes = mattress.Attributes.FindAll(attribute => attribute.IsCalculated);
-                               priceToSave = (from attribute in cancelledAttributes
+                priceToSave = (from attribute in cancelledAttributes
                                where GetPredicateToFindSellingPriceAttribute().Invoke(attribute)
                                select attribute).First().Price;
                 mattress.Attributes.RemoveAll(attribute => attribute.IsCalculated);

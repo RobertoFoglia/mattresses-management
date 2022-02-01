@@ -12,9 +12,11 @@ namespace mattresses_management_dektop_app.Core.Models.entities
 
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+
         [NotNull]
         [Indexed]
         public int IdMattress { get; set; }
+
         [NotNull]
         public int IdAttribute { get; set; }
 
@@ -23,6 +25,7 @@ namespace mattresses_management_dektop_app.Core.Models.entities
 
         [Ignore]
         public Mattress Mattress { get; set; }
+
         [Ignore]
         public Attribute Attribute { get; set; }
     }

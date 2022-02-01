@@ -1,27 +1,18 @@
-﻿using System;
-using System.Globalization;
-using System.IO;
-using System.Reflection;
-using System.Threading.Tasks;
-using mattresses_management_dektop_app.Activation;
+﻿using mattresses_management_dektop_app.Activation;
 using mattresses_management_dektop_app.Configurations;
 using mattresses_management_dektop_app.Core.Logging;
-using mattresses_management_dektop_app.Core.Models.entities;
-using mattresses_management_dektop_app.Core.Services.Api;
 using mattresses_management_dektop_app.Services;
 using mattresses_management_dektop_app.Views;
-
 using Microsoft.Practices.Unity;
-
 using Prism.Mvvm;
 using Prism.Unity.Windows;
 using Prism.Windows.AppModel;
 using Prism.Windows.Navigation;
-using Serilog;
+using System;
+using System.Globalization;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Resources;
-using Windows.Storage;
-using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Log = mattresses_management_dektop_app.Core.Logging.Log;
@@ -31,16 +22,17 @@ namespace mattresses_management_dektop_app
     [Windows.UI.Xaml.Data.Bindable]
     public sealed partial class App : PrismUnityApplication
     {
-
         private static readonly Log LOG = LogFactory.CreateNewIstance(typeof(App));
 
-        public static IUnityContainer IOCContainer { get { return App._container; } }
+        public static IUnityContainer IOCContainer
+        { get { return App._container; } }
         private static IUnityContainer _container;
+
         public App()
         {
             InitializeComponent();
             UnhandledException += OnAppUnhandledException;
-    }
+        }
 
         protected override void ConfigureContainer()
         {
@@ -100,7 +92,6 @@ namespace mattresses_management_dektop_app
                     await OnLaunchApplicationAsync(args as LaunchActivatedEventArgs);
                 }
             }
-
         }
 
         protected override async Task OnInitializeAsync(IActivatedEventArgs args)

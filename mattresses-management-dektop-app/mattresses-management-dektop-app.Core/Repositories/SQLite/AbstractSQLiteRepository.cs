@@ -3,14 +3,15 @@ using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace mattresses_management_dektop_app.Core.Repositories.SQLite
 {
     public abstract class AbstractSQLiteRepository<E, K> : IRepository<E, K> where E : new()
     {
         public SQLiteConnection connectionPool;
-        public AbstractSQLiteRepository(SQLiteConnection connectionPool) {
+
+        public AbstractSQLiteRepository(SQLiteConnection connectionPool)
+        {
             this.connectionPool = connectionPool;
             this.InitTable();
         }
@@ -25,7 +26,8 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
             return this.connectionPool.Find<E>(key);
         }
 
-        public int Insert(E item) {
+        public int Insert(E item)
+        {
             return this.connectionPool.Insert(item);
         }
 
@@ -39,7 +41,8 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
             return this.connectionPool.Update(item);
         }
 
-        public int Delete(K key) {
+        public int Delete(K key)
+        {
             return this.connectionPool.Delete<K>(key);
         }
 

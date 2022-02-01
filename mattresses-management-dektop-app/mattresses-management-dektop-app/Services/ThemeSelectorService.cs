@@ -1,8 +1,6 @@
-﻿using System;
+﻿using mattresses_management_dektop_app.Helpers;
+using System;
 using System.Threading.Tasks;
-
-using mattresses_management_dektop_app.Helpers;
-
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.UI.Core;

@@ -16,12 +16,12 @@
         </Style>
     </Page.Resources>
 
-    <Grid x:Name="RootGrid" >
+    <Grid x:Name="RootGrid">
         <Grid.RowDefinitions>
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
@@ -33,8 +33,8 @@
                          HeadersVisibility="All" AutoGenerateColumns="False">
             <Custom:DataGrid.Columns>
                 <Custom:DataGridTextColumn Header="Id" Binding="{Binding Id}" Tag="Id" />
-                <Custom:DataGridTextColumn Header="Nome" Binding="{Binding Name}" Tag="Name"/>
-                <Custom:DataGridTextColumn Header="Prezzo unitario (€)" Binding="{Binding Price}" Tag="Price"/>
+                <Custom:DataGridTextColumn Header="Nome" Binding="{Binding Name}" Tag="Name" />
+                <Custom:DataGridTextColumn Header="Prezzo unitario (€)" Binding="{Binding Price}" Tag="Price" />
             </Custom:DataGrid.Columns>
         </Custom:DataGrid>
 
@@ -52,12 +52,12 @@
 
         <Custom:BladeView x:Name="BladeView"
                         Margin="13"
-                        Grid.Column="1" Grid.Row="0" 
+                        Grid.Column="1" Grid.Row="0"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         BladeMode="Fullscreen"
                         AutoCollapseCountThreshold="4">
-            
+
             <Custom:BladeItem x:Name="FirstBlade"
                           Header="Dettagli"
                           Style="{StaticResource BladeStyle}"
@@ -76,51 +76,50 @@
                              CanUserResizeColumns="True" SelectionMode="Single"
                          HeadersVisibility="All" AutoGenerateColumns="False">
                             <Custom:DataGrid.Columns>
-                                <Custom:DataGridTextColumn Header="Id" Binding="{Binding Id}" Tag="Id" IsReadOnly="True"/>
-                                <Custom:DataGridTextColumn Header="Nome" Binding="{Binding Name}" Tag="Name" IsReadOnly="True"/>
-                                <Custom:DataGridTextColumn Header="Descrizione" Binding="{Binding Description}" Tag="Description" IsReadOnly="True"/>
-                                <Custom:DataGridTextColumn Header="Unità di misura" Binding="{Binding MeasureUnit}" Tag="MeasureUnit" IsReadOnly="True"/>
-                                <Custom:DataGridTextColumn Header="Quantità" Binding="{Binding Number}" Tag="Number"/>
-                                <Custom:DataGridTextColumn Header="Prezzo unitario (€)" Binding="{Binding Price}" Tag="Price" IsReadOnly="True"/>
-                                <Custom:DataGridTextColumn Header="Prezzo totale (€)" Binding="{Binding TotalPrice}" Tag="Total Price" IsReadOnly="True"/>
+                                <Custom:DataGridTextColumn Header="Id" Binding="{Binding Id}" Tag="Id" IsReadOnly="True" />
+                                <Custom:DataGridTextColumn Header="Nome" Binding="{Binding Name}" Tag="Name" IsReadOnly="True" />
+                                <Custom:DataGridTextColumn Header="Descrizione" Binding="{Binding Description}" Tag="Description" IsReadOnly="True" />
+                                <Custom:DataGridTextColumn Header="Unità di misura" Binding="{Binding MeasureUnit}" Tag="MeasureUnit" IsReadOnly="True" />
+                                <Custom:DataGridTextColumn Header="Quantità" Binding="{Binding Number}" Tag="Number" />
+                                <Custom:DataGridTextColumn Header="Prezzo unitario (€)" Binding="{Binding Price}" Tag="Price" IsReadOnly="True" />
+                                <Custom:DataGridTextColumn Header="Prezzo totale (€)" Binding="{Binding TotalPrice}" Tag="Total Price" IsReadOnly="True" />
                             </Custom:DataGrid.Columns>
                         </Custom:DataGrid>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" x:Name="ProductsButtons">
                             <ToggleButton  Margin="10,10,0,10" Content="Scegli prodotti" Click="ToggleButton_Click"  IsChecked="{Binding IsOpen, Mode=TwoWay, ElementName=SecondBlade}" />
-                            <Button x:Name="ProductDeletingButton" Content="Elimina prodotto" Margin="10,10,0,10"  Click="ProductDeleteButton_Click"/>
+                            <Button x:Name="ProductDeletingButton" Content="Elimina prodotto" Margin="10,10,0,10"  Click="ProductDeleteButton_Click" />
                         </StackPanel>
 
                         <controls:ItemsRepeater x:Name="AttributesRepeater">
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Margin="0,5,5,0">
-                                    <TextBlock Text="{Binding Name}" Margin="0,0,5,0" VerticalAlignment="Center" Width="150"/>
+                                    <TextBlock Text="{Binding Name}" Margin="0,0,5,0" VerticalAlignment="Center" Width="150" />
                                     <TextBox Text="{Binding PriceInEuro}" TextAlignment="Right"
-                                         Width="100" IsReadOnly="{Binding IsReadOnly}"/>
+                                         Width="100" IsReadOnly="{Binding IsReadOnly}" />
                                 </StackPanel>
                             </DataTemplate>
                         </controls:ItemsRepeater>
 
                         <StackPanel x:Name="ChangingActionLayout" Height="48" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-                            <Button Content="Annulla" Click="TheCancelClick"/>
-                            <Button Content="Salva" Margin="10,0,0,0" Click="TheConfirmClick"/>
+                            <Button Content="Annulla" Click="TheCancelClick" />
+                            <Button Content="Salva" Margin="10,0,0,0" Click="TheConfirmClick" />
                         </StackPanel>
                         <StackPanel x:Name="ReadingActionLayout" Height="48" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,10,0,0">
-                            <Button Content="Aggiungi" Margin="10,0,0,0"  Click="TheAddingClick"/>
-                            <Button Content="Modifica" Margin="10,0,0,0"  Click="TheChangingClick"/>
-                            <Button Content="Elimina" Margin="10,0,0,0"   Click="TheDeletingClick"/>
+                            <Button Content="Aggiungi" Margin="10,0,0,0"  Click="TheAddingClick" />
+                            <Button Content="Modifica" Margin="10,0,0,0"  Click="TheChangingClick" />
+                            <Button Content="Elimina" Margin="10,0,0,0"   Click="TheDeletingClick" />
                         </StackPanel>
                     </StackPanel>
-
                 </ScrollViewer>
             </Custom:BladeItem>
 
-            <Custom:BladeItem x:Name="SecondBlade" 
+            <Custom:BladeItem x:Name="SecondBlade"
                           Header="Scegli i prodotti da inserire"
                           IsOpen="False"
                           Style="{StaticResource BladeStyle}">
 
-                <ScrollViewer ZoomMode="Disabled" 
+                <ScrollViewer ZoomMode="Disabled"
             IsTabStop="True" IsVerticalScrollChainingEnabled="True"
             HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden"
             VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Visible">
@@ -131,18 +130,18 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
+                                <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
                             <TextBox Grid.Column="0" Name="NameTextBoxForSearching" KeyDown="Searching_KeyDown"
-                                 MinWidth="100" Header="Nome" Margin="5,0,5,0"/>
+                                 MinWidth="100" Header="Nome" Margin="5,0,5,0" />
                             <TextBox Grid.Column="1" Name="DescriptionTextBoxForSearching" KeyDown="Searching_KeyDown"
-                                 MinWidth="100" Header="Descrizione" Margin="5,0,5,0"/>
+                                 MinWidth="100" Header="Descrizione" Margin="5,0,5,0" />
                         </Grid>
 
                         <StackPanel HorizontalAlignment="Right">
-                            <Button x:Name="ProductSearchingButton" Content="Cerca" Margin="0,10,0,10" Click="ProductSearchingButton_Click"/>
+                            <Button x:Name="ProductSearchingButton" Content="Cerca" Margin="0,10,0,10" Click="ProductSearchingButton_Click" />
                         </StackPanel>
 
                         <Custom:DataGrid x:Name="ProductsGridForAdding"  Grid.Column="0" Grid.Row="0" MaxHeight="600"
@@ -152,24 +151,19 @@
                          HeadersVisibility="All" AutoGenerateColumns="False" Margin="10">
                             <Custom:DataGrid.Columns>
                                 <Custom:DataGridTextColumn Header="Id" Binding="{Binding Id}" Tag="Id" />
-                                <Custom:DataGridTextColumn Header="Nome" Binding="{Binding Name}" Tag="Name"/>
-                                <Custom:DataGridTextColumn Header="Descrizione" Binding="{Binding Description}" Tag="Description"/>
-                                <Custom:DataGridTextColumn Header="Prezzo unitario (€)" Binding="{Binding Price}" Tag="Price"/>
-                                <Custom:DataGridTextColumn Header="Unità di misura" Binding="{Binding MeasureUnit}" Tag="MeasureUnit"/>
+                                <Custom:DataGridTextColumn Header="Nome" Binding="{Binding Name}" Tag="Name" />
+                                <Custom:DataGridTextColumn Header="Descrizione" Binding="{Binding Description}" Tag="Description" />
+                                <Custom:DataGridTextColumn Header="Prezzo unitario (€)" Binding="{Binding Price}" Tag="Price" />
+                                <Custom:DataGridTextColumn Header="Unità di misura" Binding="{Binding MeasureUnit}" Tag="MeasureUnit" />
                             </Custom:DataGrid.Columns>
                         </Custom:DataGrid>
 
                         <StackPanel HorizontalAlignment="Right">
-                            <Button x:Name="ProductAddingButton" Content="Aggiungi prodotti" Margin="0,10,0,10" Click="TheProductAddingClick"/>
+                            <Button x:Name="ProductAddingButton" Content="Aggiungi prodotti" Margin="0,10,0,10" Click="TheProductAddingClick" />
                         </StackPanel>
                     </StackPanel>
-
                 </ScrollViewer>
-
-                
             </Custom:BladeItem>
-
         </Custom:BladeView>
-
     </Grid>
 </Page>

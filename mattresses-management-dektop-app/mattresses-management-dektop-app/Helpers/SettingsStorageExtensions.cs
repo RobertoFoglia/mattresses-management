@@ -1,9 +1,7 @@
-﻿using System;
+﻿using mattresses_management_dektop_app.Core.Helpers;
+using System;
 using System.IO;
 using System.Threading.Tasks;
-
-using mattresses_management_dektop_app.Core.Helpers;
-
 using Windows.Storage;
 using Windows.Storage.Streams;
 

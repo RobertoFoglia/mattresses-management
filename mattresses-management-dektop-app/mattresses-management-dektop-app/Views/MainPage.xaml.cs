@@ -231,7 +231,8 @@ namespace mattresses_management_dektop_app.Views
                 DeletingButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                 ChangingButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             }
-            else {
+            else
+            {
                 DeletingButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
                 ChangingButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
             }

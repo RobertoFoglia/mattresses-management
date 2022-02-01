@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using AdaptiveCards;
-
+﻿using AdaptiveCards;
 using mattresses_management_dektop_app.Activation;
 using mattresses_management_dektop_app.Views;
-
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.UI;
 using Windows.UI.Shell;

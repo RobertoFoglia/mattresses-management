@@ -6,7 +6,7 @@ using Microsoft.Practices.Unity;
 
 namespace mattresses_management_dektop_app.Configurations
 {
-    class ServiceConfig
+    internal class ServiceConfig
     {
         private readonly IUnityContainer container;
         private static readonly Log LOG = LogFactory.CreateNewIstance(typeof(RepositoriesConfig));

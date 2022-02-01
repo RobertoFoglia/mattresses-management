@@ -12,7 +12,9 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
     {
         private static readonly Log LOG = LogFactory.CreateNewIstance(typeof(AttributesSQLiteRepository));
 
-        public AttributesSQLiteRepository(SQLiteConnection connectionPool) : base(connectionPool) { }
+        public AttributesSQLiteRepository(SQLiteConnection connectionPool) : base(connectionPool)
+        {
+        }
 
         public override CreateTableResult InitTable()
         {

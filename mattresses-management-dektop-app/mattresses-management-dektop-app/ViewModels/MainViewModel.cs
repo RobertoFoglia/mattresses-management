@@ -1,6 +1,4 @@
-﻿using System;
-
-using Prism.Windows.Mvvm;
+﻿using Prism.Windows.Mvvm;
 
 namespace mattresses_management_dektop_app.ViewModels
 {

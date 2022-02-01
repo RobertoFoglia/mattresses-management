@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
+﻿using System.Globalization;
 
 namespace mattresses_management_dektop_app.Core.Utils
 {
@@ -14,7 +11,8 @@ namespace mattresses_management_dektop_app.Core.Utils
             return price.ToString("C", culture);
         }
 
-        public static decimal ParsePrice(string price) {
+        public static decimal ParsePrice(string price)
+        {
             if (!decimal.TryParse(price.Replace("€", "").Replace(" ", ""), out decimal convertedPrice))
                 convertedPrice = 0;
             return convertedPrice;

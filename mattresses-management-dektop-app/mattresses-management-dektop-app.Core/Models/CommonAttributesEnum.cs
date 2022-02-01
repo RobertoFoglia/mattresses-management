@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace mattresses_management_dektop_app.Core.Models.entities
+﻿namespace mattresses_management_dektop_app.Core.Models.entities
 {
     public enum CommonAttributesEnum : int
     {

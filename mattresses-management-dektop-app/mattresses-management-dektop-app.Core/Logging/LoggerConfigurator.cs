@@ -19,12 +19,5 @@ namespace mattresses_management_dektop_app.Core.Logging
             Serilog.Log.Information("Serilog configuration is done.");
             Serilog.Log.Information("The log file is in the " + _logFilePath);
         }
-
-        public static void SetLevel()
-        {
-            // TODO rfoglia - set level
-        }
-
-        public static CloseAndFlush() => Serilog.Log.Logger.
     }
 }

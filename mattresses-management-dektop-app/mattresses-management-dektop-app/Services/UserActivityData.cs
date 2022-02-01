@@ -1,8 +1,6 @@
-﻿using System;
+﻿using mattresses_management_dektop_app.Activation;
+using System;
 using System.Threading.Tasks;
-
-using mattresses_management_dektop_app.Activation;
-
 using Windows.ApplicationModel.UserActivities;
 using Windows.UI;
 

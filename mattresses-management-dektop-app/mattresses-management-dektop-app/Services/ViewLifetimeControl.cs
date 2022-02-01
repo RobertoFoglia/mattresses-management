@@ -1,7 +1,5 @@
-﻿using System;
-
-using mattresses_management_dektop_app.Helpers;
-
+﻿using mattresses_management_dektop_app.Helpers;
+using System;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 
@@ -19,6 +17,7 @@ namespace mattresses_management_dektop_app.Services
 
         // Window for this particular view. Used to register and unregister for events
         private CoreWindow _window;
+
         private int _refCount = 0;
         private bool _released = false;
 

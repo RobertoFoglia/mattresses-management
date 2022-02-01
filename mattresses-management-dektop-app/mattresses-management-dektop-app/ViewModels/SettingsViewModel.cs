@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
-using mattresses_management_dektop_app.Helpers;
+﻿using mattresses_management_dektop_app.Helpers;
 using mattresses_management_dektop_app.Services;
-
 using Prism.Commands;
 using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
-
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 

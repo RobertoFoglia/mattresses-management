@@ -1,10 +1,7 @@
 ﻿using mattresses_management_dektop_app.Core.Models.entities;
 using mattresses_management_dektop_app.Core.Repositories.Api;
 using SQLite;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace mattresses_management_dektop_app.Core.Repositories.SQLite
 {
@@ -34,7 +31,8 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
                 , mattress.Id);
         }
 
-        public bool BelongsToAMattress(Product entity) {
+        public bool BelongsToAMattress(Product entity)
+        {
             return this.connectionPool
                 .Query<MattressProduct>(
                     "SELECT * FROM " + MattressProduct.TableName +

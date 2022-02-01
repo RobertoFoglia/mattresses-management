@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Style="{StaticResource PageStyle}"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
-    prismMvvm:ViewModelLocator.AutoWireViewModel="True" 
+    prismMvvm:ViewModelLocator.AutoWireViewModel="True"
     xmlns:xaml="using:Windows.UI.Xaml"
     mc:Ignorable="d">
     <Page.Resources>
@@ -23,7 +23,7 @@
                 <TextBlock x:Uid="Settings_Theme" />
 
                 <StackPanel Margin="{StaticResource XSmallTopMargin}">
-                    <RadioButton 
+                    <RadioButton
                         x:Uid="Settings_Theme_Light"
                         Command="{Binding SwitchThemeCommand}"
                         IsChecked="{Binding ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}"
@@ -33,7 +33,7 @@
                             <xaml:ElementTheme>Light</xaml:ElementTheme>
                         </RadioButton.CommandParameter>
                     </RadioButton>
-                    <RadioButton 
+                    <RadioButton
                         x:Uid="Settings_Theme_Dark"
                         Command="{Binding SwitchThemeCommand}"
                         IsChecked="{Binding ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}"
@@ -43,7 +43,7 @@
                             <xaml:ElementTheme>Dark</xaml:ElementTheme>
                         </RadioButton.CommandParameter>
                     </RadioButton>
-                    <RadioButton 
+                    <RadioButton
                         x:Uid="Settings_Theme_Default"
                         Command="{Binding SwitchThemeCommand}"
                         IsChecked="{Binding ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Default, Mode=OneWay}"
@@ -56,7 +56,6 @@
                 </StackPanel>
             </StackPanel>
 
-
             <TextBlock Text="Impostazione tecniche" Style="{ThemeResource SubtitleTextBlockStyle}" />
 
             <StackPanel Margin="{StaticResource XSmallTopMargin}">
@@ -66,10 +65,10 @@
                     Margin="{StaticResource XSmallTopMargin}"
                     IsReadOnly="True" />
             </StackPanel>
-            
+
             <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="0,30,0,0" />
 
-            <StackPanel Margin="{StaticResource XSmallTopMargin}" >
+            <StackPanel Margin="{StaticResource XSmallTopMargin}">
                 <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}" />
                 <TextBlock
                     x:Uid="Settings_AboutDescription"

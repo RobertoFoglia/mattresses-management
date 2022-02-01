@@ -2,8 +2,6 @@
 using mattresses_management_dektop_app.Core.Repositories.Api;
 using SQLite;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace mattresses_management_dektop_app.Core.Repositories.SQLite
 {
@@ -24,7 +22,8 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
         {
             this.connectionPool.BeginTransaction();
 
-            try {
+            try
+            {
                 this.Insert(item);
 
                 var addedMattress = FindByName(item.Name);
@@ -64,7 +63,9 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
                 this.connectionPool.Commit();
 
                 return 1;
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 this.connectionPool.Rollback();
                 throw ex;
             }

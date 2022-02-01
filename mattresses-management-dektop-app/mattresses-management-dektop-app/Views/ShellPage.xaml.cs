@@ -1,6 +1,4 @@
-﻿using System;
-
-using mattresses_management_dektop_app.ViewModels;
+﻿using mattresses_management_dektop_app.ViewModels;
 
 using Windows.UI.Xaml.Controls;
 

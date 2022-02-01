@@ -1,7 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Threading.Tasks;
-
-using Newtonsoft.Json;
 
 namespace mattresses_management_dektop_app.Core.Helpers
 {

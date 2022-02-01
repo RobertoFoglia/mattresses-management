@@ -47,7 +47,6 @@ namespace mattresses_management_dektop_app.Views
             AttributesService = ApplicationContext.Container.Resolve<IAttributesService>();
             mattressFactory = ApplicationContext.Container.Resolve<MattressFactory>();
 
-
             MattressesGrid.ItemsSource = new ObservableCollection<Mattress>(MattressesService.FindAll());
             MattressesGrid.SelectedIndex = 0;
             MattressesGrid.SelectionChanged += MattressesGrid_SelectionChanged;
@@ -191,7 +190,7 @@ namespace mattresses_management_dektop_app.Views
         {
             var productToDelete = ProductsGrid.SelectedIndex;
             newMattress.Products.RemoveAt(productToDelete);
-            (ProductsGrid.ItemsSource as ObservableCollection<Product>).RemoveAt(productToDelete);
+            (ProductsGrid.ItemsSource as ObservableCollection<Product>)?.RemoveAt(productToDelete);
             UpdateAttributesRepeater();
         }
 
