@@ -36,6 +36,7 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
             return new List<Attribute> {
                     new Attribute {
                         Id = (int) CommonAttributesEnum.MAN_POWER,
+                        Code = nameof(CommonAttributesEnum.MAN_POWER),
                         Name = "Manodopera",
                         Price = 8,
                         Percentage = -1,
@@ -43,6 +44,7 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
                     },
                     new Attribute {
                         Id = (int) CommonAttributesEnum.MANAGEMENT,
+                        Code = nameof(CommonAttributesEnum.MANAGEMENT),
                         Name = "Gestione",
                         Price = 3,
                         Percentage = -1,
@@ -50,6 +52,7 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
                     },
                     new Attribute {
                         Id = (int) CommonAttributesEnum.PERCENT_ON_PRIMARY_MATERIAL,
+                        Code = nameof(CommonAttributesEnum.PERCENT_ON_PRIMARY_MATERIAL),
                         Name = "2% su materia prima",
                         Price = -1,
                         Percentage = 2,
@@ -57,6 +60,7 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
                     },
                     new Attribute {
                         Id = (int) CommonAttributesEnum.ASSICURATION,
+                        Code = nameof(CommonAttributesEnum.ASSICURATION),
                         Name = "Assicurazione 2%",
                         Price = -1,
                         Percentage = 2,
@@ -64,6 +68,7 @@ namespace mattresses_management_dektop_app.Core.Repositories.SQLite
                     },
                     new Attribute {
                         Id = (int) CommonAttributesEnum.DELIVERY,
+                        Code = nameof(CommonAttributesEnum.DELIVERY),
                         Name = "Trasporto",
                         Price = 7,
                         Percentage = -1,

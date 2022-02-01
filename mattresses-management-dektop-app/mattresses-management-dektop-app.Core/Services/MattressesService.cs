@@ -29,7 +29,8 @@ namespace mattresses_management_dektop_app.Core.Services
             this.attributesService = attributesService;
         }
 
-        public Mattress GetAttributes(Mattress mattress) {
+        public Mattress GetAttributes(Mattress mattress)
+        {
             if (mattress == null)
             {
                 mattress = new Mattress();
@@ -39,15 +40,18 @@ namespace mattresses_management_dektop_app.Core.Services
             var dictionary = MattressAttributesRepository.FindByMattress(mattress)
                 .ToDictionary<MattressAttribute, int>(mattressAttribute => mattressAttribute.IdAttribute);
 
-            mattress.Attributes.ForEach(attribute => {
+            mattress.Attributes.ForEach(attribute =>
+            {
                 MattressAttribute mattressAttribute;
                 dictionary.TryGetValue(attribute.Id, out mattressAttribute);
 
-                if (mattressAttribute.Price >= 0) {
+                if (mattressAttribute.Price >= 0)
+                {
                     attribute.Price = mattressAttribute.Price;
                 }
 
-                if (mattressAttribute.Percentage >= 0) {
+                if (mattressAttribute.Percentage >= 0)
+                {
                     attribute.Percentage = mattressAttribute.Percentage;
                 }
             });
@@ -71,23 +75,23 @@ namespace mattresses_management_dektop_app.Core.Services
             mattress.Attributes.ForEach(
                 attribute =>
                 {
-                    if (attribute.Name.ToUpper().Contains("PRIMA"))
+                    if (attribute.Id == (int)CommonAttributesEnum.PERCENT_ON_PRIMARY_MATERIAL)
                     {
                         attribute.Price = productsSum * attribute.Percentage / 100;
                         array[2] = attribute;
                         return;
                     }
-                    if (attribute.Name.ToUpper().Contains("MANODOPERA"))
+                    if (attribute.Id == (int)CommonAttributesEnum.MAN_POWER)
                     {
                         array[1] = attribute;
                         return;
                     }
-                    if (attribute.Name.ToUpper().Contains("GESTIONE"))
+                    if (attribute.Id == (int)CommonAttributesEnum.MANAGEMENT)
                     {
                         array[0] = attribute;
                         return;
                     }
-                    if (attribute.Name.ToUpper().Contains("ASSICURAZIONE"))
+                    if (attribute.Id == (int)CommonAttributesEnum.ASSICURATION)
                     {
                         assicurazione = attribute;
                         assicurazione.Price = mattress.Price * attribute.Percentage / 100;
@@ -101,20 +105,15 @@ namespace mattresses_management_dektop_app.Core.Services
             tmp.Insert(0,
                 new Attribute()
                 {
+                    Id = (int)CommonAttributesEnum.MATTRESS_PRICE,
+                    Code = nameof(CommonAttributesEnum.MATTRESS_PRICE),
                     Name = "Costo materasso",
                     Price = productsSum + array.ToList().Sum<Attribute>(attribute => attribute.Price),
                     IsCalculated = true
                 }
             );
-            tmp.Insert(1,
-                new Attribute()
-                {
-                    Name = "Prezzo di vendita",
-                    Price = mattress.Price,
-                    IsCalculated = true,
-                    IsReadOnly = false
-                }
-            );
+
+            tmp.Insert(1, CraeteSellingPriceAttribute(mattress.Price));
             tmp.Insert(2, assicurazione);
 
             array.ToList().ForEach(attribute => tmp.Insert(0, attribute));
@@ -122,6 +121,8 @@ namespace mattresses_management_dektop_app.Core.Services
             tmp.Add(
                 new Attribute()
                 {
+                    Id = (int)CommonAttributesEnum.REVENUE,
+                    Code = nameof(CommonAttributesEnum.REVENUE),
                     Name = "RICAVO",
                     Price = mattress.Price - attributesForTheGain,
                     IsCalculated = true
@@ -131,27 +132,41 @@ namespace mattresses_management_dektop_app.Core.Services
             return tmp;
         }
 
-        public void CalculateTheAttributes(Mattress mattress) {
+        public Attribute CraeteSellingPriceAttribute(decimal price) {
+            return new Attribute()
+            {
+                Id = (int)CommonAttributesEnum.SELLING_PRICE,
+                Code = nameof(CommonAttributesEnum.SELLING_PRICE),
+                Name = "Prezzo di vendita",
+                Price = price,
+                IsCalculated = true,
+                IsReadOnly = false
+            };
+        }
 
+        public void CalculateTheAttributes(Mattress mattress)
+        {
             decimal priceToSave = 0;
-            if (mattress.Attributes.Count() != 0) {
+            if (mattress.Attributes.Count != 0)
+            {
                 List<Attribute> cancelledAttributes = mattress.Attributes.FindAll(attribute => attribute.IsCalculated);
-                priceToSave = (from attribute in cancelledAttributes
-                              where "Prezzo di vendita".Equals(attribute.Name)
-                              select attribute).First().Price;
+                               priceToSave = (from attribute in cancelledAttributes
+                               where GetPredicateToFindSellingPriceAttribute().Invoke(attribute)
+                               select attribute).First().Price;
                 mattress.Attributes.RemoveAll(attribute => attribute.IsCalculated);
             }
 
             mattress.Attributes = CalculateAndOrderTheAttributes(mattress);
-            var attributeToChange = mattress.Attributes.Find(attribute => "Prezzo di vendita".Equals(attribute.Name));
+            var attributeToChange = mattress.Attributes.Find(GetPredicateToFindSellingPriceAttribute());
             attributeToChange.Price = priceToSave;
 
-            attributeToChange = mattress.Attributes.Find(attribute => "Prezzo di vendita".Equals(attribute.Name));
+            attributeToChange = mattress.Attributes.Find(GetPredicateToFindSellingPriceAttribute());
             attributeToChange.Price += priceToSave;
         }
 
-        public Predicate<Attribute> GetPredicateWihtPrezzoDiVendita() {
-            return attribute => attribute.Name.Equals("Prezzo di vendita");
+        public Predicate<Attribute> GetPredicateToFindSellingPriceAttribute()
+        {
+            return attribute => nameof(CommonAttributesEnum.SELLING_PRICE).Equals(attribute.Code);
         }
 
         public Mattress GetProducts(Mattress mattress)
@@ -189,7 +204,8 @@ namespace mattresses_management_dektop_app.Core.Services
                 mattress = new Mattress();
             }
 
-            if (mattress.Products == null) {
+            if (mattress.Products == null)
+            {
                 mattress.Products = new List<Product>();
             }
 
@@ -197,8 +213,9 @@ namespace mattresses_management_dektop_app.Core.Services
             mattress.Attributes = CalculateAndOrderTheAttributes(mattress);
             return mattress;
         }
-    
-        public new int Insert(Mattress mattress) {
+
+        public new int Insert(Mattress mattress)
+        {
             // TODO validation
             // - name is unique
             // - quantity is number

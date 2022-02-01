@@ -1,7 +1,5 @@
 ﻿using SQLite;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace mattresses_management_dektop_app.Core.Models.entities
 {
@@ -13,9 +11,10 @@ namespace mattresses_management_dektop_app.Core.Models.entities
         public const string NameOfName = "Name";
         public const string DescriptionName = "Description";
 
-       [PrimaryKey, AutoIncrement]
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        [NotNull] [Unique]
+        [NotNull]
+        [Unique]
         public string Name { get; set; }
         public String Description { get; set; }
         public decimal Price { get; set; }
@@ -25,8 +24,9 @@ namespace mattresses_management_dektop_app.Core.Models.entities
         [Ignore]
         public decimal Number { get; set; }
         [Ignore]
-        public decimal TotalPrice { 
-            get { return Price * Number; } 
+        public decimal TotalPrice
+        {
+            get { return Price * Number; }
         }
     }
 }

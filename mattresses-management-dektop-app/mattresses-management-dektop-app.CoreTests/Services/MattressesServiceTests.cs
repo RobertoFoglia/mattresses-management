@@ -1,21 +1,17 @@
-﻿using mattresses_management_dektop_app.Core.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AutoFixture;
 using mattresses_management_dektop_app.Core.Models.entities;
-using mattresses_management_dektop_app.Core.Repositories.SQLite;
-using NUnit.Framework;
 using mattresses_management_dektop_app.Core.Repositories.Api;
+using mattresses_management_dektop_app.Core.Repositories.SQLite;
 using mattresses_management_dektop_app.Core.Services.Api;
 using Moq;
-using AutoFixture;
+using NUnit.Framework;
+using System.Collections.Generic;
 
-namespace mattresses_management_dektop_app.Core.Services.Tests
+namespace mattresses_management_dektop_app.Core.Services
 {
     [TestFixture]
     public class MattressesServiceTests
     {
-
         private Mock<IMattressesRepository> mattressesRepositoryMock;
         private Mock<IMattressProductsRepository> mattressProductsRepositoryMock;
         private Mock<IMattressAttributesRepository> mattressAttributesRepositoryMock;
@@ -42,15 +38,8 @@ namespace mattresses_management_dektop_app.Core.Services.Tests
         {
             mattress = fixtures.Create<Mattress>();
             mattress.Attributes = AttributesSQLiteRepository.getDefaultAttributes();
-
-            mattress.Attributes.Add(new Models.entities.Attribute
-            {
-                Name = "Prezzo di vendita",
-                Price = 0,
-                Percentage = -1,
-                Default = false,
-                IsCalculated = true
-            });
+            
+            mattress.Attributes.Add(service.CraeteSellingPriceAttribute(0));
             mattress.Products = new List<Product>();
         }
 
@@ -70,10 +59,11 @@ namespace mattresses_management_dektop_app.Core.Services.Tests
             service.CalculateTheAttributes(mattress);
 
             // 2% on the primary material
-            Assert.AreEqual(mattress.Attributes.Find(attribute => attribute.Id == 3).Price, 0.848m);
+            Assert.AreEqual(
+                mattress.Attributes.Find(attribute => (int)CommonAttributesEnum.PERCENT_ON_PRIMARY_MATERIAL == attribute.Id).Price,
+                0.848m);
             // products total + 2% sulle materie prime + labour + assicuration
             Assert.AreEqual(mattress.Attributes.Find(attribute => "Costo materasso".Equals(attribute.Name)).Price, 42.4m + 0.848m + 8m + 3m);
-
         }
     }
 }

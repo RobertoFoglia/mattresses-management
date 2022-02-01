@@ -1,7 +1,6 @@
 ﻿using SQLite;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace mattresses_management_dektop_app.Core.Models.entities
 {
@@ -22,8 +21,9 @@ namespace mattresses_management_dektop_app.Core.Models.entities
         public List<Attribute> Attributes { get; set; }
         public decimal Price { get; set; }
         [Ignore]
-        public String FormattedPrice { 
-            get { return String.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:C2}", Price); } 
+        public String FormattedPrice
+        {
+            get => String.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:C2}", Price);
         }
     }
 }

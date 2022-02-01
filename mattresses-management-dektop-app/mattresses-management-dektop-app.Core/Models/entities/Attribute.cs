@@ -1,8 +1,6 @@
 ﻿using mattresses_management_dektop_app.Core.Utils;
 using SQLite;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace mattresses_management_dektop_app.Core.Models.entities
 {
@@ -14,24 +12,29 @@ namespace mattresses_management_dektop_app.Core.Models.entities
 
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+
         [NotNull]
         [Unique]
         public string Name { get; set; }
 
+        [NotNull]
+        [Unique]
+        public string Code { get; set; }
+
         public decimal Price { get; set; }
-        public string PriceInEuro {
-            get { return PriceUtils.FormatPrice(this.Price); } 
+
+        public string PriceInEuro
+        {
+            get => PriceUtils.FormatPrice(this.Price);
         }
+
         public decimal Percentage { get; set; }
         public Boolean Default { get; set; }
 
         [Ignore]
         public Boolean IsCalculated { get; set; }
-        private bool _isReadOnly = true;
+
         [Ignore]
-        public bool IsReadOnly {
-            get { return _isReadOnly; }
-            set { this._isReadOnly = value; } 
-        }
+        public bool IsReadOnly { get; set; } = true;
     }
 }

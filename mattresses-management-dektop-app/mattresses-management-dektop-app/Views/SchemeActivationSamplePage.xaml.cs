@@ -233,7 +233,7 @@ namespace mattresses_management_dektop_app.Views
 
         private void TextBox_LostFocus(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            newMattress.Attributes.Find(MattressesService.GetPredicateWihtPrezzoDiVendita())
+            newMattress.Attributes.Find(MattressesService.GetPredicateToFindSellingPriceAttribute())
                 .Price = PriceUtils.ParsePrice((sender as TextBox).Text);
 
             this.UpdateAttributesRepeater();
